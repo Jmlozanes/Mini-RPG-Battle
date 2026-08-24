@@ -86,56 +86,7 @@ h1{
 
 
 
-.knight{
 
-
-    background:
-
-    linear-gradient(
-    90deg,
-    transparent 20%,
-    #1e90ff 20%,
-    #1e90ff 80%,
-    transparent 80%
-    );
-
-
-    filter:
-    drop-shadow(0 0 15px cyan);
-
-
-    animation:
-    idle 1s infinite alternate;
-
-
-}
-
-
-
-
-.goblin{
-
-
-    background:
-
-    linear-gradient(
-    90deg,
-    transparent 15%,
-    #4cff4c 15%,
-    #4cff4c 85%,
-    transparent 85%
-    );
-
-
-    filter:
-    drop-shadow(0 0 15px lime);
-
-
-    animation:
-    idle 1s infinite alternate;
-
-
-}
 
 
 
