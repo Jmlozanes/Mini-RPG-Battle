@@ -1,269 +1,415 @@
-console.log("RPG GAME LOADED");
-const canvas = document.getElementById("gameCanvas");
+const canvas = document.getElementById("game");
 const ctx = canvas.getContext("2d");
 
+let shake = 0;
+let frame = 0;
 
-// =========================
-// CHARACTER SYSTEM
-// =========================
+
+// =======================
+// PIXEL SPRITES
+// =======================
+
+
+const knightSprite = [
+
+"00011000",
+"00111100",
+"01111110",
+"00111100",
+"00111100",
+"01111110",
+"11011011",
+"00100100"
+
+];
+
+
+const goblinSprite = [
+
+"01111110",
+"11111111",
+"11011011",
+"11111111",
+"01111110",
+"00111100",
+"01100110",
+"11000011"
+
+];
+
+
+
+// =======================
+// CHARACTER CLASS
+// =======================
 
 
 class Character {
 
 
-    constructor(name, hp, attack, x, y, color){
+constructor(name,hp,damage,x,y,sprite,color){
 
-        this.name = name;
-        this.hp = hp;
-        this.maxHP = hp;
-        this.attackPower = attack;
+this.name=name;
+this.hp=hp;
+this.maxHP=hp;
 
-        this.x = x;
-        this.y = y;
+this.damage=damage;
 
-        this.color = color;
+this.x=x;
+this.y=y;
 
-        this.damageText = "";
-        this.damageTimer = 0;
-
-    }
+this.sprite=sprite;
+this.color=color;
 
 
+this.offset=0;
 
-    attack(target){
+this.hit=0;
 
-        let damage = 
-        Math.floor(Math.random() * this.attackPower) + 5;
+this.text="";
 
-
-        target.takeDamage(damage);
-
-
-        return damage;
-
-    }
+}
 
 
 
-    takeDamage(amount){
+attack(target){
 
-        this.hp -= amount;
-
-
-        if(this.hp < 0){
-            this.hp = 0;
-        }
+let dmg=
+Math.floor(Math.random()*this.damage)+5;
 
 
-        this.damageText = "-" + amount;
-        this.damageTimer = 40;
+target.takeDamage(dmg);
 
-    }
+
+return dmg;
+
+}
 
 
 
-    draw(){
+takeDamage(value){
+
+this.hp-=value;
 
 
-        // BODY PIXEL CHARACTER
-
-        ctx.fillStyle = this.color;
-
-
-        ctx.fillRect(
-            this.x,
-            this.y,
-            50,
-            50
-        );
+if(this.hp<0)
+this.hp=0;
 
 
-        // HEAD
+this.hit=10;
 
-        ctx.fillStyle = "#FFD28A";
+this.text="-"+value;
 
-        ctx.fillRect(
-            this.x + 10,
-            this.y - 25,
-            30,
-            25
-        );
+shake=10;
+
+}
 
 
 
-        // HP BAR
-
-        ctx.fillStyle = "red";
-
-        ctx.fillRect(
-            this.x,
-            this.y + 70,
-            120,
-            15
-        );
-
-
-        ctx.fillStyle = "lime";
-
-        ctx.fillRect(
-            this.x,
-            this.y + 70,
-            120 * (this.hp / this.maxHP),
-            15
-        );
+draw(){
 
 
 
-        ctx.fillStyle="white";
-
-        ctx.fillText(
-            this.name,
-            this.x,
-            this.y + 110
-        );
+let jump =
+Math.sin(frame*0.1)*5;
 
 
 
-        // DAMAGE POPUP
-
-        if(this.damageTimer > 0){
-
-            ctx.fillStyle="yellow";
-
-            ctx.font="25px Arial";
-
-            ctx.fillText(
-                this.damageText,
-                this.x + 30,
-                this.y - 40
-            );
+drawPixel(
+this.sprite,
+this.x,
+this.y+jump,
+this.color
+);
 
 
-            this.damageTimer--;
 
-        }
+drawBar(this);
 
 
-    }
+
+if(this.hit>0){
+
+ctx.fillStyle="white";
+
+ctx.globalAlpha=.5;
+
+ctx.fillRect(
+this.x-20,
+this.y-20,
+120,
+120
+);
+
+ctx.globalAlpha=1;
+
+
+this.hit--;
+
+}
+
+
+if(this.text){
+
+ctx.fillStyle="yellow";
+
+ctx.font="25px monospace";
+
+ctx.fillText(
+this.text,
+this.x,
+this.y-40
+);
+
+}
 
 
 }
 
 
 
-// =========================
-// CREATE CHARACTERS
-// =========================
+}
 
 
-const hero = new Character(
-    "Knight",
-    150,
-    30,
-    120,
-    220,
-    "blue"
+
+// =======================
+// DRAW PIXEL
+// =======================
+
+
+function drawPixel(sprite,x,y,color){
+
+
+let size=12;
+
+
+ctx.fillStyle=color;
+
+
+sprite.forEach((row,Y)=>{
+
+
+row.split("").forEach((pixel,X)=>{
+
+
+if(pixel==="1"){
+
+
+ctx.fillRect(
+x+(X*size),
+y+(Y*size),
+size,
+size
+);
+
+
+}
+
+
+});
+
+
+});
+
+
+}
+
+
+
+
+function drawBar(char){
+
+
+let width=150;
+
+
+ctx.fillStyle="red";
+
+ctx.fillRect(
+char.x,
+char.y+120,
+width,
+15
 );
 
 
 
-const enemy = new Character(
-    "Goblin",
-    100,
-    20,
-    600,
-    220,
-    "green"
+ctx.fillStyle="lime";
+
+
+ctx.fillRect(
+
+char.x,
+
+char.y+120,
+
+width*(char.hp/char.maxHP),
+
+15
+
+);
+
+
+ctx.fillStyle="white";
+
+ctx.font="18px monospace";
+
+
+ctx.fillText(
+char.name,
+char.x,
+char.y+160
 );
 
 
 
-// =========================
+}
+
+
+// =======================
+// CREATE HERO + ENEMY
+// =======================
+
+
+const hero =
+new Character(
+"Knight",
+150,
+30,
+150,
+250,
+knightSprite,
+"#00aaff"
+);
+
+
+
+const goblin =
+new Character(
+"Goblin",
+120,
+25,
+650,
+250,
+goblinSprite,
+"#00ff55"
+);
+
+
+
+// =======================
 // GAME LOOP
-// =========================
+// =======================
 
 
-function gameLoop(){
+function update(){
 
 
-    ctx.clearRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
+frame++;
 
 
-
-    hero.draw();
-
-    enemy.draw();
+ctx.save();
 
 
 
-    requestAnimationFrame(gameLoop);
+if(shake){
+
+ctx.translate(
+Math.random()*10-5,
+Math.random()*10-5
+);
+
+shake--;
 
 }
 
 
-gameLoop();
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
 
 
 
-// =========================
-// BATTLE SYSTEM
-// =========================
+hero.draw();
+
+goblin.draw();
+
+
+
+ctx.restore();
+
+
+
+requestAnimationFrame(update);
+
+
+}
+
+
+update();
+
+
+
+// =======================
+// ATTACK SYSTEM
+// =======================
 
 
 function playerAttack(){
 
 
-    if(enemy.hp <= 0){
-        return;
-    }
-
-
-    let damage = hero.attack(enemy);
-
-
-    document.getElementById("battleLog").innerHTML =
-    `${hero.name} attacked ${enemy.name}! Damage: ${damage}`;
+if(goblin.hp<=0)
+return;
 
 
 
-    if(enemy.hp <= 0){
-
-        document.getElementById("battleLog").innerHTML =
-        "🎉 Goblin defeated!";
-
-        return;
-
-    }
+let dmg =
+hero.attack(goblin);
 
 
 
-    setTimeout(()=>{
-
-
-        let enemyDamage = enemy.attack(hero);
-
-
-
-        document.getElementById("battleLog").innerHTML +=
-        `<br>${enemy.name} attacked you! Damage: ${enemyDamage}`;
+document.getElementById("log").innerHTML =
+`
+Knight attacks Goblin! <br>
+Damage: ${dmg}
+`;
 
 
 
-        if(hero.hp <= 0){
+if(goblin.hp<=0){
 
-            document.getElementById("battleLog").innerHTML =
-            "💀 You have been defeated!";
+document.getElementById("log").innerHTML =
+"🏆 Goblin defeated!";
 
-        }
+return;
+
+}
 
 
 
-    },700);
+setTimeout(()=>{
+
+
+let enemyDamage =
+goblin.attack(hero);
+
+
+
+document.getElementById("log").innerHTML +=
+`
+<br>
+Goblin attacks! 
+<br>
+Damage: ${enemyDamage}
+`;
+
+
+
+},600);
 
 
 
