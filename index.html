@@ -1,1 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mini RPG Battle</title>
+    <link rel="stylesheet" href="style.css">
+</head>
 
+<body>
+
+<div class="game">
+
+    <h1>⚔ Mini RPG Battle ⚔</h1>
+
+    <div class="battle-area">
+
+        <!-- Hero -->
+        <div class="character">
+            <div class="pixel hero">
+                🧙
+            </div>
+
+            <h2>Hero</h2>
+
+            <div class="hp-bar">
+                <div id="heroHP" class="hp hero-health"></div>
+            </div>
+
+            <p id="heroHealthText">HP: 100</p>
+        </div>
+
+
+        <div class="vs">
+            VS
+        </div>
+
+
+        <!-- Enemy -->
+        <div class="character">
+
+            <div class="pixel enemy">
+                👹
+            </div>
+
+            <h2>Goblin</h2>
+
+            <div class="hp-bar">
+                <div id="enemyHP" class="hp enemy-health"></div>
+            </div>
+
+            <p id="enemyHealthText">HP: 100</p>
+
+        </div>
+
+    </div>
+
+
+    <button onclick="attack()">
+        ⚔ ATTACK
+    </button>
+
+
+    <div class="battle-log">
+        <h3>Battle Log</h3>
+        <p id="log">
+            A wild Goblin appeared!
+        </p>
+    </div>
+
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
