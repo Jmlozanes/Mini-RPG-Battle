@@ -53,7 +53,7 @@ const goblinSprite = [
 function drawSprite(sprite,x,y,color){
 
 
-let size = 12;
+let size = 15;
 
 
 ctx.fillStyle=color;
