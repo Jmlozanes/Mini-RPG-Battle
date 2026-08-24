@@ -1,62 +1,92 @@
-let playerHP = 150;
-let enemyHP = 120;
+const canvas =
+document.getElementById("gameCanvas");
 
 
-function attack(){
-
-  let playerHP = 150;
-let enemyHP = 120;
-
-document
-.getElementById("knight")
-.classList.add("attack-animation");
+const ctx =
+canvas.getContext("2d");
 
 
-setTimeout(()=>{
-
-document
-.getElementById("knight")
-.classList.remove("attack-animation");
-
-},300);
-
-function attack(){
-
-let damage =
-Math.floor(Math.random()*20)+10;
+// ==========================
+// PIXEL SPRITES
+// ==========================
 
 
-enemyHP -= damage;
+const knightSprite = [
+
+"00011000",
+"00111100",
+"01111110",
+"01100110",
+"11111111",
+"00111100",
+"01100110",
+"11000011"
+
+];
 
 
 
-document.getElementById("enemyHP")
-.style.width =
-(enemyHP/120)*100+"%";
+const goblinSprite = [
+
+"00111100",
+"01111110",
+"11011011",
+"11111111",
+"01111110",
+"00111100",
+"01100110",
+"11000011"
+
+];
 
 
 
-document.getElementById("enemyText")
-.innerHTML =
-"HP "+enemyHP+" / 120";
+// ==========================
+// DRAW SPRITE ENGINE
+// ==========================
+
+
+function drawSprite(sprite,x,y,color){
+
+
+let size = 12;
+
+
+ctx.fillStyle=color;
 
 
 
-document.getElementById("log")
-.innerHTML =
-"⚔ Knight attacks Goblin! Damage: "
-+damage;
+sprite.forEach((row,rowIndex)=>{
+
+
+row.split("").forEach((pixel,columnIndex)=>{
+
+
+if(pixel==="1"){
+
+
+ctx.fillRect(
+
+x + columnIndex * size,
+
+y + rowIndex * size,
+
+size,
+
+size
+
+);
+
+
+}
 
 
 
+});
 
-if(enemyHP <=0){
 
-document.getElementById("log")
-.innerHTML =
-"🏆 Goblin defeated!";
+});
 
-return;
 
 }
 
@@ -64,38 +94,254 @@ return;
 
 
 
-setTimeout(()=>{
+// ==========================
+// CHARACTER OBJECT
+// ==========================
 
 
-let enemyDamage =
-Math.floor(Math.random()*15)+5;
+class Character{
 
 
-playerHP -= enemyDamage;
+constructor(name,x,y,sprite,color,hp){
+
+
+this.name=name;
+
+this.x=x;
+
+this.y=y;
+
+this.sprite=sprite;
+
+this.color=color;
+
+this.hp=hp;
+
+this.maxHP=hp;
+
+
+this.float=0;
+
+
+}
 
 
 
-document.getElementById("playerHP")
-.style.width =
-(playerHP/150)*100+"%";
+draw(){
+
+
+let movement =
+Math.sin(Date.now()/300)*5;
 
 
 
-document.getElementById("playerText")
-.innerHTML =
-"HP "+playerHP+" / 150";
+drawSprite(
+
+this.sprite,
+
+this.x,
+
+this.y+movement,
+
+this.color
+
+);
+
+
+
+this.drawHP();
+
+
+}
+
+
+
+drawHP(){
+
+
+ctx.fillStyle="red";
+
+
+ctx.fillRect(
+
+this.x,
+
+this.y+130,
+
+150,
+
+15
+
+);
+
+
+
+ctx.fillStyle="lime";
+
+
+ctx.fillRect(
+
+this.x,
+
+this.y+130,
+
+150*(this.hp/this.maxHP),
+
+15
+
+);
+
+
+
+ctx.fillStyle="white";
+
+
+ctx.font="18px monospace";
+
+
+ctx.fillText(
+
+this.name,
+
+this.x,
+
+this.y+170
+
+);
+
+
+
+}
+
+
+}
+
+
+
+// ==========================
+// CREATE CHARACTERS
+// ==========================
+
+
+const knight = new Character(
+
+"Knight",
+
+150,
+
+200,
+
+knightSprite,
+
+"#2196ff",
+
+150
+
+);
+
+
+
+const goblin = new Character(
+
+"Goblin",
+
+650,
+
+200,
+
+goblinSprite,
+
+"#4cff4c",
+
+120
+
+);
+
+
+
+
+
+// ==========================
+// GAME LOOP
+// ==========================
+
+
+function gameLoop(){
+
+
+
+ctx.clearRect(
+
+0,
+
+0,
+
+canvas.width,
+
+canvas.height
+
+);
+
+
+
+knight.draw();
+
+
+goblin.draw();
+
+
+
+requestAnimationFrame(gameLoop);
+
+
+}
+
+
+gameLoop();
+
+
+
+
+
+// ==========================
+// ATTACK
+// ==========================
+
+
+function attack(){
+
+
+let damage =
+Math.floor(Math.random()*20)+10;
+
+
+
+goblin.hp -= damage;
 
 
 
 document.getElementById("log")
-.innerHTML +=
-"<br>👹 Goblin attacks! Damage: "
-+enemyDamage;
+.innerHTML =
+
+`
+⚔ Knight attacks Goblin!
+<br>
+Damage: ${damage}
+`;
 
 
 
-},800);
+if(goblin.hp<=0){
 
+goblin.hp=0;
+
+
+document.getElementById("log")
+.innerHTML=
+
+"🏆 Goblin defeated!";
+
+}
 
 
 }
