@@ -13,184 +13,27 @@
 <body>
 
 
-<div class="game">
+<h1>⚔ MINI RPG BATTLE ⚔</h1>
 
 
-<h1>
-⚔ MINI RPG BATTLE ⚔
-</h1>
+<canvas id="gameCanvas" width="900" height="500"></canvas>
 
 
-
-<div class="battle-screen">
-
-
-<div class="character-area">
-
-
-<div id="knight" class="pixel-character knight">
-
-</div>
-
-
-<div class="name">
-Knight
-</div>
-
-
-<div class="bar">
-
-<div id="playerHP"></div>
-
-</div>
-
-
-<p id="playerText">
-HP 150 / 150
-</p>
-
-
-</div>
-
-
-
-
-
-<div class="vs">
-
-VS
-
-</div>
-
-
-
-
-
-<div class="character-area">
-
-
-<div id="goblin" class="pixel-character goblin">
-
-</div>
-
-
-<div class="name">
-Goblin
-</div>
-
-
-<div class="bar">
-
-<div id="enemyHP"></div>
-
-</div>
-
-
-<p id="enemyText">
-HP 120 / 120
-</p>
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-<div class="bottom">
-
-
-<div class="stats">
-
-
-<h2>Knight</h2>
-
-<p>LV. 1</p>
-
-<p>ATK: 25</p>
-
-<p>DEF: 10</p>
-
-<p>SPD: 8</p>
-
-
-</div>
-
-
-
-
-
-<div class="actions">
-
+<div class="controls">
 
 <button onclick="attack()">
 ⚔ Attack
 </button>
 
-
-<button>
-🔥 Power Strike
-</button>
-
-
-<button>
-🛡 Defend
-</button>
-
-
-<button>
-🧪 Potion
-</button>
-
-
 </div>
 
 
+<div id="log">
 
-
-
-<div class="stats">
-
-
-<h2>Goblin</h2>
-
-<p>LV. 1</p>
-
-<p>ATK: 18</p>
-
-<p>DEF: 6</p>
-
-<p>SPD: 6</p>
-
+A wild Goblin appeared!
 
 </div>
 
-
-</div>
-
-
-
-
-
-<div class="log">
-
-<p id="log">
-
-⚔ A wild Goblin appeared!
-
-</p>
-
-
-</div>
-
-
-
-</div>
 
 
 <script src="script.js"></script>
