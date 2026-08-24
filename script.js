@@ -4,6 +4,23 @@ let enemyHP = 120;
 
 function attack(){
 
+  let playerHP = 150;
+let enemyHP = 120;
+
+document
+.getElementById("knight")
+.classList.add("attack-animation");
+
+
+setTimeout(()=>{
+
+document
+.getElementById("knight")
+.classList.remove("attack-animation");
+
+},300);
+
+function attack(){
 
 let damage =
 Math.floor(Math.random()*20)+10;
