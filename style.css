@@ -218,3 +218,93 @@ margin-top:20px;
 height:100px;
 
 }
+.pixel-character {
+
+    width:120px;
+    height:120px;
+
+    position:relative;
+
+    image-rendering:pixelated;
+
+}
+
+
+.knight {
+
+background:
+linear-gradient(
+90deg,
+transparent 20%,
+#1e90ff 20%,
+#1e90ff 80%,
+transparent 80%
+);
+
+animation:
+idle 1s infinite alternate;
+
+}
+
+
+
+.goblin {
+
+background:
+linear-gradient(
+90deg,
+transparent 15%,
+#4cff4c 15%,
+#4cff4c 85%,
+transparent 85%
+);
+
+animation:
+idle 1s infinite alternate;
+
+}
+
+
+
+@keyframes idle {
+
+from{
+
+transform:translateY(0);
+
+}
+
+
+to{
+
+transform:translateY(-8px);
+
+}
+
+}
+
+
+
+/* attack effect */
+
+.attack-animation{
+
+animation:
+
+attackMove .3s;
+
+}
+
+
+
+@keyframes attackMove{
+
+
+50%{
+
+transform:translateX(80px);
+
+}
+
+
+}
