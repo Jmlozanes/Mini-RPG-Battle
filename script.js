@@ -678,69 +678,6 @@ nextWave();
 }
 
 
-// BULLET DAMAGE
-
-
-bullets.forEach((bullet,bIndex)=>{
-
-
-let hit = Math.hypot(
-
-bullet.x-zombie.x,
-
-bullet.y-zombie.y
-
-);
-
-
-
-if(hit < zombie.size){
-
-
-
-zombie.hp -= 25;
-
-
-bullets.splice(bIndex,1);
-
-
-
-if(zombie.hp <=0){
-
-
-
-zombies.splice(index,1);
-
-
-score++;
-
-coins +=10;
-
-
-updateHUD();
-
-
-}
-
-
-
-}
-
-
-
-});
-
-
-
-});
-
-
-
-}
-
-
-
-
 
 // =======================
 // DRAW
