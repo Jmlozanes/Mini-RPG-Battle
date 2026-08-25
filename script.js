@@ -22,6 +22,12 @@ let health = 100;
 
 let wave = 1;
 
+let zombiesToSpawn = 10;
+
+let zombiesSpawned = 0;
+
+let waveCleared = false;
+
 let coins = 0;
 
 
@@ -511,9 +517,6 @@ hp:50
 
 }
 
-
-
-
 // =======================
 // ZOMBIE AI
 // =======================
@@ -545,7 +548,9 @@ zombie.y += Math.sin(angle)*zombie.speed;
 
 
 
+// =======================
 // PLAYER DAMAGE
+// =======================
 
 
 let distance = Math.hypot(
@@ -567,9 +572,110 @@ health -= 1;
 updateHUD();
 
 
+
+if(health <= 0){
+
+
+endGame();
+
+
 }
 
 
+}
+
+
+
+
+
+// =======================
+// BULLET DAMAGE
+// =======================
+
+
+bullets.forEach((bullet,bIndex)=>{
+
+
+let hit = Math.hypot(
+
+bullet.x-zombie.x,
+
+bullet.y-zombie.y
+
+);
+
+
+
+if(hit < zombie.size){
+
+
+
+zombie.hp -= 25;
+
+
+bullets.splice(bIndex,1);
+
+
+
+if(zombie.hp <= 0){
+
+
+
+zombies.splice(index,1);
+
+
+score++;
+
+
+coins += 10;
+
+
+updateHUD();
+
+
+
+}
+
+
+
+}
+
+
+
+});
+
+
+
+});
+
+
+
+
+
+// =======================
+// WAVE CHECK
+// ILAGAY DITO
+// SA LABAS NG FOREACH
+// =======================
+
+
+if(
+
+zombies.length === 0 &&
+
+zombiesSpawned >= zombiesToSpawn
+
+){
+
+
+nextWave();
+
+
+}
+
+
+
+}
 
 
 // BULLET DAMAGE
@@ -826,7 +932,35 @@ ammo+" / "+maxAmmo;
 }
 
 
+// =======================
+// GAME OVER
+// =======================
 
+
+function endGame(){
+
+
+gameRunning = false;
+
+
+document
+.getElementById("gameOver")
+.classList.remove("hidden");
+
+
+}
+
+document
+.getElementById("restartBtn")
+.addEventListener(
+"click",
+()=>{
+
+
+location.reload();
+
+
+});
 
 
 
@@ -875,13 +1009,28 @@ requestAnimationFrame(gameLoop);
 setInterval(()=>{
 
 
-if(gameRunning)
+if(gameRunning){
+
+
+if(
+zombiesSpawned < zombiesToSpawn
+){
+
 
 spawnZombie();
 
 
-},1500);
+zombiesSpawned++;
 
+
+}
+
+
+}
+
+
+
+},1200);
 
 
 
