@@ -24,6 +24,8 @@ let wave = 1;
 
 let coins = 0;
 
+
+
 // =======================
 // WEAPON SYSTEM
 // =======================
@@ -36,39 +38,39 @@ let reloading = false;
 
 let reloadTime = 1500;
 
-// GAME LOOP
+
+
 function reload(){
 
 
-if(reloading)
-return;
+    if(reloading)
+        return;
 
 
-if(ammo == maxAmmo)
-return;
+    if(ammo === maxAmmo)
+        return;
 
 
-
-reloading = true;
-
-
-setTimeout(()=>{
+    reloading = true;
 
 
-ammo=maxAmmo;
+    setTimeout(()=>{
 
 
-reloading=false;
+        ammo = maxAmmo;
+
+        reloading = false;
+
+        updateHUD();
 
 
-updateHUD();
-
-
-},reloadTime);
+    }, reloadTime);
 
 
 
 }
+
+
 
 // =======================
 // DASH SYSTEM
@@ -81,6 +83,8 @@ let dashPower = 80;
 let dashCooldown = 3000;
 
 
+
+
 // =======================
 // PLAYER
 // =======================
@@ -91,11 +95,11 @@ const player = {
 
     y: canvas.height / 2,
 
-    size: 25,
+    size:25,
 
-    speed: 5,
+    speed:5,
 
-    color: "#00ff99",
+    color:"#00ff99",
 
     angle:0
 
@@ -103,18 +107,15 @@ const player = {
 
 
 
+
 // =======================
-// BULLETS
+// OBJECTS
 // =======================
 
 let bullets = [];
 
-
-// =======================
-// ZOMBIES
-// =======================
-
 let zombies = [];
+
 
 
 
@@ -128,23 +129,32 @@ window.addEventListener(
 (e)=>{
 
 
-if(e.key.toLowerCase()=="r"){
+    keys[e.key.toLowerCase()] = true;
 
-reload();
 
-}
+
+    if(e.key.toLowerCase()=="r"){
+
+        reload();
+
+    }
 
 
 });
+
 
 
 window.addEventListener(
 "keyup",
 (e)=>{
 
+
     keys[e.key.toLowerCase()] = false;
 
+
 });
+
+
 
 
 
@@ -171,12 +181,16 @@ mouse.x-player.x
 );
 
 
+
 });
 
 
 
 
+// =======================
 // SHOOT
+// =======================
+
 
 canvas.addEventListener(
 "click",
@@ -191,7 +205,7 @@ if(reloading)
 return;
 
 
-if(ammo <= 0)
+if(ammo <=0)
 return;
 
 
@@ -205,11 +219,9 @@ x:player.x,
 
 y:player.y,
 
-
 dx:Math.cos(player.angle)*speed,
 
 dy:Math.sin(player.angle)*speed,
-
 
 size:5
 
@@ -219,7 +231,9 @@ size:5
 
 ammo--;
 
+
 updateHUD();
+
 
 
 });
@@ -227,28 +241,82 @@ updateHUD();
 
 
 
+
 // =======================
-// MOVEMENT
+// PLAYER MOVEMENT
 // =======================
 
 
 function movePlayer(){
 
-if(keys[" "] && canDash){
 
 
-let dx = 0;
-let dy = 0;
+let moving = false;
+
+
+
+if(keys["w"]){
+
+player.y -= player.speed;
+
+moving=true;
+
+}
+
+
+
+if(keys["s"]){
+
+player.y += player.speed;
+
+moving=true;
+
+}
+
+
+
+if(keys["a"]){
+
+player.x -= player.speed;
+
+moving=true;
+
+}
+
+
+
+if(keys["d"]){
+
+player.x += player.speed;
+
+moving=true;
+
+}
+
+
+
+// DASH
+
+if(keys[" "] && canDash && moving){
+
+
+let dx=0;
+
+let dy=0;
+
 
 
 if(keys["w"])
 dy=-1;
 
+
 if(keys["s"])
 dy=1;
 
+
 if(keys["a"])
 dx=-1;
+
 
 if(keys["d"])
 dx=1;
@@ -274,22 +342,9 @@ canDash=true;
 },dashCooldown);
 
 
+
 }
-    
-if(keys["w"])
-player.y -= player.speed;
 
-
-if(keys["s"])
-player.y += player.speed;
-
-
-if(keys["a"])
-player.x -= player.speed;
-
-
-if(keys["d"])
-player.x += player.speed;
 
 
 
@@ -300,6 +355,7 @@ player.x = Math.max(
 0,
 Math.min(canvas.width,player.x)
 );
+
 
 
 player.y = Math.max(
@@ -315,7 +371,7 @@ Math.min(canvas.height,player.y)
 
 
 // =======================
-// BULLET UPDATE
+// BULLETS
 // =======================
 
 
@@ -341,11 +397,11 @@ bullet.y <0 ||
 
 bullet.y >canvas.height
 
-)
+){
 
-{
 
 bullets.splice(index,1);
+
 
 }
 
@@ -361,19 +417,18 @@ bullets.splice(index,1);
 
 
 // =======================
-// CREATE ZOMBIE
+// SPAWN ZOMBIE
 // =======================
 
 
 function spawnZombie(){
 
 
-let side = Math.floor(
-Math.random()*4
-);
+let side = Math.floor(Math.random()*4);
 
 
 let x,y;
+
 
 
 if(side===0){
@@ -383,6 +438,7 @@ x=0;
 y=Math.random()*canvas.height;
 
 }
+
 
 if(side===1){
 
@@ -412,7 +468,9 @@ y=canvas.height;
 
 
 
+
 zombies.push({
+
 
 x:x,
 
@@ -428,8 +486,8 @@ hp:50
 });
 
 
-}
 
+}
 
 
 
@@ -464,7 +522,8 @@ zombie.y += Math.sin(angle)*zombie.speed;
 
 
 
-// PLAYER COLLISION
+
+// PLAYER DAMAGE
 
 
 let distance = Math.hypot(
@@ -477,14 +536,13 @@ player.y-zombie.y
 
 
 
-if(distance < player.size+zombie.size){
+if(distance < player.size + zombie.size){
 
 
-health -= 0.5;
+health -= 1;
 
 
 updateHUD();
-
 
 
 }
@@ -492,7 +550,7 @@ updateHUD();
 
 
 
-// BULLET COLLISION
+// BULLET DAMAGE
 
 
 bullets.forEach((bullet,bIndex)=>{
@@ -511,13 +569,16 @@ bullet.y-zombie.y
 if(hit < zombie.size){
 
 
+
 zombie.hp -= 25;
 
 
 bullets.splice(bIndex,1);
 
 
-if(zombie.hp<=0){
+
+if(zombie.hp <=0){
+
 
 
 zombies.splice(index,1);
@@ -525,7 +586,7 @@ zombies.splice(index,1);
 
 score++;
 
-coins += 10;
+coins +=10;
 
 
 updateHUD();
@@ -534,6 +595,7 @@ updateHUD();
 }
 
 
+
 }
 
 
@@ -547,6 +609,8 @@ updateHUD();
 
 
 }
+
+
 
 
 
@@ -556,6 +620,7 @@ updateHUD();
 
 
 function draw(){
+
 
 
 ctx.clearRect(
@@ -572,6 +637,7 @@ canvas.height
 
 
 
+
 // PLAYER
 
 
@@ -579,6 +645,7 @@ ctx.fillStyle = player.color;
 
 
 ctx.beginPath();
+
 
 ctx.arc(
 
@@ -599,7 +666,8 @@ ctx.fill();
 
 
 
-// GUN AIM LINE
+
+// AIM LINE
 
 
 ctx.strokeStyle="white";
@@ -624,7 +692,6 @@ mouse.y
 
 
 ctx.stroke();
-
 
 
 
@@ -659,7 +726,9 @@ Math.PI*2
 ctx.fill();
 
 
+
 });
+
 
 
 
@@ -694,12 +763,13 @@ Math.PI*2
 ctx.fill();
 
 
-
 });
 
 
 
 }
+
+
 
 
 
@@ -715,19 +785,26 @@ document.getElementById("health").innerHTML =
 Math.floor(health);
 
 
+
 document.getElementById("kills").innerHTML =
 score;
+
 
 
 document.getElementById("coins").innerHTML =
 coins;
 
 
+
 document.getElementById("ammo").innerHTML =
 ammo+" / "+maxAmmo;
 
 
+
 }
+
+
+
 
 
 
@@ -737,6 +814,7 @@ ammo+" / "+maxAmmo;
 
 
 function gameLoop(){
+
 
 
 if(gameRunning){
@@ -754,7 +832,6 @@ updateZombies();
 draw();
 
 
-
 }
 
 
@@ -762,12 +839,15 @@ draw();
 requestAnimationFrame(gameLoop);
 
 
+
 }
 
 
 
 
-// SPAWN ZOMBIES
+
+
+// SPAWN TIMER
 
 
 setInterval(()=>{
@@ -783,6 +863,10 @@ spawnZombie();
 
 
 
-// START GAME
+
+// START
+
+
+updateHUD();
 
 gameLoop();
