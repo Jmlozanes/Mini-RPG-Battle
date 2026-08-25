@@ -129,15 +129,26 @@ window.addEventListener(
 (e)=>{
 
 
-    keys[e.key.toLowerCase()] = true;
+let key = e.key.toLowerCase();
+
+
+if(key === " "){
+
+keys["space"] = true;
+
+}else{
+
+keys[key] = true;
+
+}
 
 
 
-    if(e.key.toLowerCase()=="r"){
+if(key=="r"){
 
-        reload();
+reload();
 
-    }
+}
 
 
 });
@@ -149,11 +160,22 @@ window.addEventListener(
 (e)=>{
 
 
-    keys[e.key.toLowerCase()] = false;
+let key = e.key.toLowerCase();
+
+
+if(key === " "){
+
+keys["space"] = false;
+
+}else{
+
+keys[key] = false;
+
+}
+
 
 
 });
-
 
 
 
@@ -297,7 +319,7 @@ moving=true;
 
 // DASH
 
-if(keys[" "] && canDash && moving){
+if(keys["space"] && canDash && moving){
 
 
 let dx=0;
