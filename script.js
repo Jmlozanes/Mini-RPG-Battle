@@ -234,7 +234,48 @@ updateHUD();
 
 function movePlayer(){
 
+if(keys[" "] && canDash){
 
+
+let dx = 0;
+let dy = 0;
+
+
+if(keys["w"])
+dy=-1;
+
+if(keys["s"])
+dy=1;
+
+if(keys["a"])
+dx=-1;
+
+if(keys["d"])
+dx=1;
+
+
+
+player.x += dx * dashPower;
+
+player.y += dy * dashPower;
+
+
+
+canDash=false;
+
+
+
+setTimeout(()=>{
+
+
+canDash=true;
+
+
+},dashCooldown);
+
+
+}
+    
 if(keys["w"])
 player.y -= player.speed;
 
