@@ -24,6 +24,30 @@ let wave = 1;
 
 let coins = 0;
 
+// =======================
+// WEAPON SYSTEM
+// =======================
+
+let maxAmmo = 12;
+
+let ammo = 12;
+
+let reloading = false;
+
+let reloadTime = 1500;
+
+
+
+// =======================
+// DASH SYSTEM
+// =======================
+
+let canDash = true;
+
+let dashPower = 80;
+
+let dashCooldown = 3000;
+
 
 // =======================
 // PLAYER
