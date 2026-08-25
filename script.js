@@ -36,7 +36,39 @@ let reloading = false;
 
 let reloadTime = 1500;
 
+// GAME LOOP
+function reload(){
 
+
+if(reloading)
+return;
+
+
+if(ammo == maxAmmo)
+return;
+
+
+
+reloading = true;
+
+
+setTimeout(()=>{
+
+
+ammo=maxAmmo;
+
+
+reloading=false;
+
+
+updateHUD();
+
+
+},reloadTime);
+
+
+
+}
 
 // =======================
 // DASH SYSTEM
