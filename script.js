@@ -1,85 +1,422 @@
-const canvas =
-document.getElementById("gameCanvas");
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
 
 
-const ctx =
-canvas.getContext("2d");
+// =======================
+// GAME VARIABLES
+// =======================
+
+let gameRunning = true;
+
+let keys = {};
+
+let mouse = {
+    x: canvas.width / 2,
+    y: canvas.height / 2
+};
 
 
-// ==========================
-// PIXEL SPRITES
-// ==========================
+let score = 0;
+
+let health = 100;
+
+let wave = 1;
+
+let coins = 0;
 
 
-const knightSprite = [
+// =======================
+// PLAYER
+// =======================
 
-"00000111100000",
-"00011111111000",
-"00111111111100",
-"00111001111110",
-"11111111111111",
-"01111111111110",
-"00111111111100",
-"00110110110110",
-"01100000000110",
-"11000000000011"
+const player = {
 
-];
+    x: canvas.width / 2,
 
+    y: canvas.height / 2,
 
-const goblinSprite = [
+    size: 25,
 
-"00000111110000",
-"00011111111100",
-"00111111111110",
-"01110111110111",
-"11111111111111",
-"11101111111011",
-"01111111111110",
-"00111111111100",
-"00011111111000",
-"00110011001100",
-"01100000000110"
+    speed: 5,
 
-];
+    color: "#00ff99",
 
+    angle:0
 
-
-// ==========================
-// DRAW SPRITE ENGINE
-// ==========================
-
-
-function drawSprite(sprite,x,y,color){
-
-
-let size = 15;
-
-
-ctx.fillStyle=color;
+};
 
 
 
-sprite.forEach((row,rowIndex)=>{
+// =======================
+// BULLETS
+// =======================
+
+let bullets = [];
 
 
-row.split("").forEach((pixel,columnIndex)=>{
+// =======================
+// ZOMBIES
+// =======================
+
+let zombies = [];
 
 
-if(pixel==="1"){
+
+// =======================
+// INPUT
+// =======================
 
 
-ctx.fillRect(
+window.addEventListener(
+"keydown",
+(e)=>{
 
-x + columnIndex * size,
+    keys[e.key.toLowerCase()] = true;
 
-y + rowIndex * size,
+});
 
-size,
 
-size
+window.addEventListener(
+"keyup",
+(e)=>{
+
+    keys[e.key.toLowerCase()] = false;
+
+});
+
+
+
+canvas.addEventListener(
+"mousemove",
+(e)=>{
+
+
+let rect = canvas.getBoundingClientRect();
+
+
+mouse.x = e.clientX - rect.left;
+
+mouse.y = e.clientY - rect.top;
+
+
+
+player.angle = Math.atan2(
+
+mouse.y-player.y,
+
+mouse.x-player.x
 
 );
+
+
+});
+
+
+
+
+// SHOOT
+
+canvas.addEventListener(
+"click",
+()=>{
+
+
+if(!gameRunning)
+return;
+
+
+
+let speed = 10;
+
+
+bullets.push({
+
+x:player.x,
+
+y:player.y,
+
+
+dx:Math.cos(player.angle)*speed,
+
+dy:Math.sin(player.angle)*speed,
+
+
+size:5
+
+
+});
+
+
+});
+
+
+
+
+
+// =======================
+// MOVEMENT
+// =======================
+
+
+function movePlayer(){
+
+
+if(keys["w"])
+player.y -= player.speed;
+
+
+if(keys["s"])
+player.y += player.speed;
+
+
+if(keys["a"])
+player.x -= player.speed;
+
+
+if(keys["d"])
+player.x += player.speed;
+
+
+
+// boundaries
+
+
+player.x = Math.max(
+0,
+Math.min(canvas.width,player.x)
+);
+
+
+player.y = Math.max(
+0,
+Math.min(canvas.height,player.y)
+);
+
+
+
+}
+
+
+
+
+// =======================
+// BULLET UPDATE
+// =======================
+
+
+function updateBullets(){
+
+
+bullets.forEach((bullet,index)=>{
+
+
+bullet.x += bullet.dx;
+
+bullet.y += bullet.dy;
+
+
+
+if(
+
+bullet.x <0 ||
+
+bullet.x > canvas.width ||
+
+bullet.y <0 ||
+
+bullet.y >canvas.height
+
+)
+
+{
+
+bullets.splice(index,1);
+
+}
+
+
+
+});
+
+
+
+}
+
+
+
+
+// =======================
+// CREATE ZOMBIE
+// =======================
+
+
+function spawnZombie(){
+
+
+let side = Math.floor(
+Math.random()*4
+);
+
+
+let x,y;
+
+
+if(side===0){
+
+x=0;
+
+y=Math.random()*canvas.height;
+
+}
+
+if(side===1){
+
+x=canvas.width;
+
+y=Math.random()*canvas.height;
+
+}
+
+
+if(side===2){
+
+x=Math.random()*canvas.width;
+
+y=0;
+
+}
+
+
+if(side===3){
+
+x=Math.random()*canvas.width;
+
+y=canvas.height;
+
+}
+
+
+
+zombies.push({
+
+x:x,
+
+y:y,
+
+size:25,
+
+speed:1.5,
+
+hp:50
+
+
+});
+
+
+}
+
+
+
+
+
+// =======================
+// ZOMBIE AI
+// =======================
+
+
+function updateZombies(){
+
+
+
+zombies.forEach((zombie,index)=>{
+
+
+let angle = Math.atan2(
+
+player.y-zombie.y,
+
+player.x-zombie.x
+
+);
+
+
+
+zombie.x += Math.cos(angle)*zombie.speed;
+
+
+zombie.y += Math.sin(angle)*zombie.speed;
+
+
+
+
+// PLAYER COLLISION
+
+
+let distance = Math.hypot(
+
+player.x-zombie.x,
+
+player.y-zombie.y
+
+);
+
+
+
+if(distance < player.size+zombie.size){
+
+
+health -= 0.5;
+
+
+updateHUD();
+
+
+
+}
+
+
+
+
+// BULLET COLLISION
+
+
+bullets.forEach((bullet,bIndex)=>{
+
+
+let hit = Math.hypot(
+
+bullet.x-zombie.x,
+
+bullet.y-zombie.y
+
+);
+
+
+
+if(hit < zombie.size){
+
+
+zombie.hp -= 25;
+
+
+bullets.splice(bIndex,1);
+
+
+if(zombie.hp<=0){
+
+
+zombies.splice(index,1);
+
+
+score++;
+
+coins += 10;
+
+
+updateHUD();
+
+
+}
 
 
 }
@@ -89,175 +426,21 @@ size
 });
 
 
+
 });
 
 
-}
-
-
-
-
-
-// ==========================
-// CHARACTER OBJECT
-// ==========================
-
-
-class Character{
-
-
-constructor(name,x,y,sprite,color,hp){
-
-
-this.name=name;
-
-this.x=x;
-
-this.y=y;
-
-this.sprite=sprite;
-
-this.color=color;
-
-this.hp=hp;
-
-this.maxHP=hp;
-
-
-this.float=0;
-
 
 }
 
 
 
-draw(){
+// =======================
+// DRAW
+// =======================
 
 
-let movement =
-Math.sin(Date.now()/300)*5;
-
-
-
-drawSprite(
-
-this.sprite,
-
-this.x,
-
-this.y+movement,
-
-this.color
-
-);
-
-
-
-this.drawHP();
-
-
-}
-
-
-
-drawHP(){
-
-
-ctx.fillStyle="red";
-
-
-ctx.fillRect(
-
-this.x,
-
-this.y+130,
-
-150,
-
-15
-
-);
-
-
-
-ctx.fillStyle="lime";
-
-
-ctx.fillRect(
-
-this.x,
-
-this.y+130,
-
-150*(this.hp/this.maxHP),
-
-15
-
-);
-
-
-
-ctx.fillStyle="white";
-
-
-ctx.font="18px monospace";
-
-
-ctx.fillText(
-
-this.name,
-
-this.x,
-
-this.y+170
-
-);
-
-
-
-}
-
-
-}
-
-
-
-// ==========================
-// CREATE CHARACTERS
-// ==========================
-
-
-const knight = new Character(
-"Knight",
-150,
-170,
-knightSprite,
-"#2196ff",
-150
-);
-
-
-
-const goblin = new Character(
-"Goblin",
-650,
-170,
-goblinSprite,
-"#4cff4c",
-120
-);
-
-
-
-
-
-// ==========================
-// GAME LOOP
-// ==========================
-
-
-function gameLoop(){
-
+function draw(){
 
 
 ctx.clearRect(
@@ -274,10 +457,187 @@ canvas.height
 
 
 
-knight.draw();
+// PLAYER
 
 
-goblin.draw();
+ctx.fillStyle = player.color;
+
+
+ctx.beginPath();
+
+ctx.arc(
+
+player.x,
+
+player.y,
+
+player.size,
+
+0,
+
+Math.PI*2
+
+);
+
+
+ctx.fill();
+
+
+
+// GUN AIM LINE
+
+
+ctx.strokeStyle="white";
+
+
+ctx.beginPath();
+
+
+ctx.moveTo(
+player.x,
+player.y
+);
+
+
+ctx.lineTo(
+
+mouse.x,
+
+mouse.y
+
+);
+
+
+ctx.stroke();
+
+
+
+
+
+// BULLETS
+
+
+ctx.fillStyle="yellow";
+
+
+bullets.forEach(b=>{
+
+
+ctx.beginPath();
+
+
+ctx.arc(
+
+b.x,
+
+b.y,
+
+b.size,
+
+0,
+
+Math.PI*2
+
+);
+
+
+ctx.fill();
+
+
+});
+
+
+
+
+// ZOMBIES
+
+
+ctx.fillStyle="red";
+
+
+zombies.forEach(z=>{
+
+
+ctx.beginPath();
+
+
+ctx.arc(
+
+z.x,
+
+z.y,
+
+z.size,
+
+0,
+
+Math.PI*2
+
+);
+
+
+ctx.fill();
+
+
+
+});
+
+
+
+}
+
+
+
+// =======================
+// HUD
+// =======================
+
+
+function updateHUD(){
+
+
+document.getElementById("health").innerHTML =
+Math.floor(health);
+
+
+document.getElementById("kills").innerHTML =
+score;
+
+
+document.getElementById("coins").innerHTML =
+coins;
+
+
+}
+
+
+
+
+// =======================
+// GAME LOOP
+// =======================
+
+
+function gameLoop(){
+
+
+if(gameRunning){
+
+
+movePlayer();
+
+
+updateBullets();
+
+
+updateZombies();
+
+
+draw();
+
+
+
+}
 
 
 
@@ -287,51 +647,24 @@ requestAnimationFrame(gameLoop);
 }
 
 
+
+
+// SPAWN ZOMBIES
+
+
+setInterval(()=>{
+
+
+if(gameRunning)
+
+spawnZombie();
+
+
+},1500);
+
+
+
+
+// START GAME
+
 gameLoop();
-
-
-
-
-
-// ==========================
-// ATTACK
-// ==========================
-
-
-function attack(){
-
-
-let damage =
-Math.floor(Math.random()*20)+10;
-
-
-
-goblin.hp -= damage;
-
-
-
-document.getElementById("log")
-.innerHTML =
-
-`
-⚔ Knight attacks Goblin!
-<br>
-Damage: ${damage}
-`;
-
-
-
-if(goblin.hp<=0){
-
-goblin.hp=0;
-
-
-document.getElementById("log")
-.innerHTML=
-
-"🏆 Goblin defeated!";
-
-}
-
-
-}
