@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<title>Mini RPG Battle</title>
+    <meta charset="UTF-8">
 
-<link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Zombie Survival V3</title>
+
+    <link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -13,154 +17,128 @@
 <body>
 
 
-<div class="game">
+<div class="game-container">
 
 
-<h1>⚔ MINI RPG BATTLE ⚔</h1>
+    <!-- GAME TITLE -->
 
+    <h1>
+        🧟 ZOMBIE SURVIVAL: APOCALYPSE
+    </h1>
 
 
-<div class="battle-field">
 
+    <!-- GAME HUD -->
 
-<div class="fighter">
+    <div class="hud">
 
-<div class="sprite knight">
-</div>
 
+        <div class="stat">
+            ❤️ HP:
+            <span id="health">
+                100
+            </span>
+        </div>
 
-<h2>Knight</h2>
 
+        <div class="stat">
+            🔫 Ammo:
+            <span id="ammo">
+                12 / 12
+            </span>
+        </div>
 
-<div class="hp-bar">
 
-<div class="hp knight-hp"></div>
+        <div class="stat">
+            🧟 Wave:
+            <span id="wave">
+                1
+            </span>
+        </div>
 
-</div>
 
+        <div class="stat">
+            ☠️ Kills:
+            <span id="kills">
+                0
+            </span>
+        </div>
 
-<p>HP 150 / 150</p>
 
+        <div class="stat">
+            🪙 Coins:
+            <span id="coins">
+                0
+            </span>
+        </div>
 
-</div>
 
+    </div>
 
 
 
-<div class="vs">
+    <!-- GAME AREA -->
 
-VS
+    <canvas 
+        id="gameCanvas"
+        width="900"
+        height="600">
+    </canvas>
 
-</div>
 
 
+    <!-- CONTROLS -->
 
+    <div class="controls">
 
-<div class="fighter">
 
+        <h3>
+            Controls
+        </h3>
 
-<div class="sprite goblin">
-</div>
 
+        <p>
+            W A S D - Move
+        </p>
 
-<h2>Goblin</h2>
 
+        <p>
+            Mouse Click - Shoot
+        </p>
 
-<div class="hp-bar">
 
-<div class="hp goblin-hp"></div>
+        <p>
+            R - Reload
+        </p>
 
-</div>
 
+        <p>
+            SPACE - Dash
+        </p>
 
-<p>HP 120 / 120</p>
 
+    </div>
 
 
-</div>
 
+    <!-- GAME OVER -->
 
+    <div 
+        id="gameOver"
+        class="hidden">
 
-</div>
 
+        <h2>
+            ☠️ YOU DIED
+        </h2>
 
 
+        <button id="restartBtn">
+            Restart Game
+        </button>
 
 
-
-<div class="battle-ui">
-
-
-<div class="stats">
-
-
-<h2>Knight</h2>
-
-
-<p>LV. 1</p>
-
-<p>⚔ ATK: 25</p>
-
-<p>🛡 DEF: 10</p>
-
-<p>⚡ SPD: 8</p>
-
-<p>🔥 CRIT: 5%</p>
-
-
-</div>
-
-
-
-
-
-<div class="actions">
-
-
-<button>
-⚔ Attack
-</button>
-
-
-<button>
-🔥 Power Strike
-</button>
-
-
-<button>
-🛡 Defend
-</button>
-
-
-<button>
-🧪 Potion
-</button>
-
-
-</div>
-
-
-
-
-
-<div class="stats">
-
-
-<h2>Goblin</h2>
-
-
-<p>LV. 1</p>
-
-<p>⚔ ATK: 18</p>
-
-<p>🛡 DEF: 6</p>
-
-<p>⚡ SPD: 6</p>
-
-<p>🔥 CRIT: 2%</p>
-
-
-</div>
+    </div>
 
 
 
@@ -168,32 +146,7 @@ VS
 
 
 
-
-
-
-<div class="log">
-
-
-⚔ A wild Goblin appeared!
-
-
-<br>
-
-Knight attacks Goblin!
-
-
-<br>
-
-💥 Damage: 23
-
-
-
-</div>
-
-
-
-</div>
-
+<script src="script.js"></script>
 
 
 </body>
