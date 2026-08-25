@@ -95,7 +95,13 @@ window.addEventListener(
 "keydown",
 (e)=>{
 
-    keys[e.key.toLowerCase()] = true;
+
+if(e.key.toLowerCase()=="r"){
+
+reload();
+
+}
+
 
 });
 
