@@ -149,6 +149,14 @@ if(!gameRunning)
 return;
 
 
+if(reloading)
+return;
+
+
+if(ammo <= 0)
+return;
+
+
 
 let speed = 10;
 
@@ -171,8 +179,12 @@ size:5
 });
 
 
-});
+ammo--;
 
+updateHUD();
+
+
+});
 
 
 
