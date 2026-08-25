@@ -677,6 +677,28 @@ nextWave();
 
 }
 
+// =======================
+// NEXT WAVE SYSTEM
+// =======================
+
+
+function nextWave(){
+
+
+wave++;
+
+
+zombiesSpawned = 0;
+
+
+zombiesToSpawn += 5;
+
+
+
+updateHUD();
+
+
+}
 
 
 // =======================
@@ -866,8 +888,11 @@ ammo+" / "+maxAmmo;
 
 
 
-}
+document.getElementById("wave").innerHTML =
+wave;
 
+
+}
 
 // =======================
 // GAME OVER
