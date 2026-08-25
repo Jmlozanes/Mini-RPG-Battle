@@ -723,8 +723,11 @@ document.getElementById("coins").innerHTML =
 coins;
 
 
-}
+document.getElementById("ammo").innerHTML =
+ammo+" / "+maxAmmo;
 
+
+}
 
 
 
