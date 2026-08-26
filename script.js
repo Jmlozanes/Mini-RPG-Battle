@@ -702,7 +702,21 @@ player.y-zombie.y
 if(distance < player.size + zombie.size){
 
 
+
+if(zombie.type === "boss"){
+
+
+health -= 5;
+
+
+}else{
+
+
 health -= 1;
+
+
+}
+
 
 
 updateHUD();
