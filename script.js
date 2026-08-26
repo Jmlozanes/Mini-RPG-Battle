@@ -519,7 +519,46 @@ let typeRoll = Math.random();
 
 let zombie;
 
+// =======================
+// BOSS CHECK
+// =======================
 
+
+if(wave % 5 === 0 && bossActive === false){
+
+
+bossActive = true;
+
+
+let boss = {
+
+
+type:"boss",
+
+x:x,
+
+y:y,
+
+size:70,
+
+speed:1,
+
+hp:1000,
+
+color:"purple"
+
+
+};
+
+
+
+zombies.push(boss);
+
+
+return;
+
+
+}
 
 // WALKER
 if(typeRoll < 0.7){
