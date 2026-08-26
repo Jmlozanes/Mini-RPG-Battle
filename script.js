@@ -881,7 +881,45 @@ updateHUD();
 
 function draw(){
 
+// =======================
+// BOSS WARNING
+// =======================
 
+
+if(bossWarning){
+
+
+ctx.fillStyle="red";
+
+ctx.font="40px Arial";
+
+
+ctx.fillText(
+
+"⚠️ BOSS INCOMING ⚠️",
+
+canvas.width/2-220,
+
+canvas.height/2
+
+);
+
+
+
+bossWarningTimer--;
+
+
+
+if(bossWarningTimer <= 0){
+
+
+bossWarning=false;
+
+
+}
+
+
+}
 
 ctx.clearRect(
 
