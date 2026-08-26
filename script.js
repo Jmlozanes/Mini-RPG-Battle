@@ -663,16 +663,20 @@ if(
 
 zombies.length === 0 &&
 
-zombiesSpawned >= zombiesToSpawn
+zombiesSpawned >= zombiesToSpawn &&
+
+waveCleared === false
 
 ){
+
+
+waveCleared = true;
 
 
 nextWave();
 
 
 }
-
 
 
 }
@@ -694,12 +698,13 @@ zombiesSpawned = 0;
 zombiesToSpawn += 5;
 
 
+waveCleared = false;
+
 
 updateHUD();
 
 
 }
-
 
 // =======================
 // DRAW
