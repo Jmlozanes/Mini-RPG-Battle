@@ -757,6 +757,14 @@ if(zombie.hp <= 0){
 
 
 
+if(zombie.type === "boss"){
+
+bossActive = false;
+
+}
+
+
+
 zombies.splice(index,1);
 
 
@@ -769,9 +777,7 @@ coins += 10;
 updateHUD();
 
 
-
 }
-
 
 
 }
