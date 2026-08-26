@@ -36,6 +36,8 @@ let bossWarningTimer = 0;
 
 let coins = 0;
 
+let shake = 0;
+
 
 
 // =======================
@@ -775,6 +777,13 @@ if(hit < zombie.size){
 zombie.hp -= 25;
 
 
+if(zombie.type==="boss"){
+
+shake = 10;
+
+}
+
+
 bullets.splice(bIndex,1);
 
 
@@ -783,9 +792,17 @@ if(zombie.hp <= 0){
 
 
 
-if(zombie.type === "boss"){
+if(zombie.type==="boss"){
 
-bossActive = false;
+
+bossActive=false;
+
+
+coins += 100;
+
+
+score += 10;
+
 
 }
 
@@ -931,6 +948,21 @@ canvas.width,
 
 canvas.height
 
+if(shake > 0){
+
+ctx.translate(
+
+Math.random()*shake-shake/2,
+
+Math.random()*shake-shake/2
+
+);
+
+
+shake--;
+
+}
+
 );
 
 
@@ -1070,7 +1102,82 @@ ctx.fill();
 
 }
 
+// =======================
+// BOSS HP BAR
+// =======================
 
+
+zombies.forEach(z=>{
+
+
+if(z.type==="boss"){
+
+
+
+let barWidth = 400;
+
+
+let hpPercent = z.hp / z.maxHp;
+
+
+
+ctx.fillStyle="gray";
+
+
+ctx.fillRect(
+
+canvas.width/2-barWidth/2,
+
+20,
+
+barWidth,
+
+25
+
+);
+
+
+
+ctx.fillStyle="red";
+
+
+ctx.fillRect(
+
+canvas.width/2-barWidth/2,
+
+20,
+
+barWidth*hpPercent,
+
+25
+
+);
+
+
+
+ctx.fillStyle="white";
+
+
+ctx.font="20px Arial";
+
+
+ctx.fillText(
+
+"BOSS",
+
+canvas.width/2-30,
+
+65
+
+);
+
+
+
+}
+
+
+
+});
 
 
 
