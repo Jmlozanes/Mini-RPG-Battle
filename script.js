@@ -449,7 +449,13 @@ bullets.splice(index,1);
 // =======================
 
 
+// =======================
+// SPAWN ZOMBIE SYSTEM
+// =======================
+
+
 function spawnZombie(){
+
 
 
 let side = Math.floor(Math.random()*4);
@@ -468,6 +474,7 @@ y=Math.random()*canvas.height;
 }
 
 
+
 if(side===1){
 
 x=canvas.width;
@@ -477,6 +484,7 @@ y=Math.random()*canvas.height;
 }
 
 
+
 if(side===2){
 
 x=Math.random()*canvas.width;
@@ -484,6 +492,7 @@ x=Math.random()*canvas.width;
 y=0;
 
 }
+
 
 
 if(side===3){
@@ -497,8 +506,27 @@ y=canvas.height;
 
 
 
-zombies.push({
 
+// =======================
+// RANDOM ZOMBIE TYPE
+// =======================
+
+
+let typeRoll = Math.random();
+
+
+let zombie;
+
+
+
+// WALKER
+if(typeRoll < 0.7){
+
+
+zombie = {
+
+
+type:"walker",
 
 x:x,
 
@@ -508,10 +536,77 @@ size:25,
 
 speed:1.5,
 
-hp:50
+hp:50,
+
+color:"green"
 
 
-});
+};
+
+
+}
+
+
+// RUNNER
+
+else if(typeRoll < 0.9){
+
+
+zombie = {
+
+
+type:"runner",
+
+x:x,
+
+y:y,
+
+size:20,
+
+speed:3,
+
+hp:30,
+
+color:"orange"
+
+
+};
+
+
+}
+
+
+// TANK
+
+else{
+
+
+zombie = {
+
+
+type:"tank",
+
+x:x,
+
+y:y,
+
+size:40,
+
+speed:0.8,
+
+hp:200,
+
+color:"black"
+
+
+};
+
+
+}
+
+
+
+zombies.push(zombie);
 
 
 
