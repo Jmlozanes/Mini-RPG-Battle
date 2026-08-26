@@ -28,6 +28,8 @@ let zombiesSpawned = 0;
 
 let waveCleared = false;
 
+let bossActive = false;
+
 let coins = 0;
 
 
