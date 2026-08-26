@@ -28,15 +28,22 @@ let zombiesSpawned = 0;
 
 let waveCleared = false;
 
+let coins = 0;
+
+
+// BOSS SYSTEM
+
 let bossActive = false;
 
 let bossWarning = false;
 
 let bossWarningTimer = 0;
 
-let coins = 0;
+
+// SCREEN SHAKE
 
 let shake = 0;
+
 
 
 
@@ -65,7 +72,9 @@ function reload(){
         return;
 
 
+
     reloading = true;
+
 
 
     setTimeout(()=>{
@@ -75,6 +84,7 @@ function reload(){
 
         reloading = false;
 
+
         updateHUD();
 
 
@@ -83,6 +93,7 @@ function reload(){
 
 
 }
+
 
 
 
@@ -103,21 +114,31 @@ let dashCooldown = 3000;
 // PLAYER
 // =======================
 
+
 const player = {
+
 
     x: canvas.width / 2,
 
+
     y: canvas.height / 2,
+
 
     size:25,
 
+
     speed:5,
+
 
     color:"#00ff99",
 
+
     angle:0
 
+
 };
+
+
 
 
 
@@ -126,6 +147,7 @@ const player = {
 // OBJECTS
 // =======================
 
+
 let bullets = [];
 
 let zombies = [];
@@ -133,9 +155,11 @@ let zombies = [];
 
 
 
+
 // =======================
-// INPUT
+// INPUT SYSTEM
 // =======================
+
 
 
 window.addEventListener(
@@ -146,26 +170,35 @@ window.addEventListener(
 let key = e.key.toLowerCase();
 
 
+
 if(key === " "){
 
 keys["space"] = true;
 
+
 }else{
+
 
 keys[key] = true;
 
+
 }
 
 
 
-if(key=="r"){
+if(key === "r"){
+
 
 reload();
 
+
 }
 
 
+
 });
+
+
 
 
 
@@ -177,19 +210,25 @@ window.addEventListener(
 let key = e.key.toLowerCase();
 
 
+
 if(key === " "){
 
 keys["space"] = false;
 
+
 }else{
 
+
 keys[key] = false;
+
 
 }
 
 
 
 });
+
+
 
 
 
@@ -202,17 +241,23 @@ canvas.addEventListener(
 let rect = canvas.getBoundingClientRect();
 
 
+
 mouse.x = e.clientX - rect.left;
+
 
 mouse.y = e.clientY - rect.top;
 
 
 
+
 player.angle = Math.atan2(
+
 
 mouse.y-player.y,
 
+
 mouse.x-player.x
+
 
 );
 
@@ -223,9 +268,13 @@ mouse.x-player.x
 
 
 
+
+
+
 // =======================
-// SHOOT
+// SHOOT SYSTEM
 // =======================
+
 
 
 canvas.addEventListener(
@@ -241,28 +290,36 @@ if(reloading)
 return;
 
 
-if(ammo <=0)
+if(ammo <= 0)
 return;
+
 
 
 
 let speed = 10;
 
 
+
 bullets.push({
+
 
 x:player.x,
 
+
 y:player.y,
+
 
 dx:Math.cos(player.angle)*speed,
 
+
 dy:Math.sin(player.angle)*speed,
+
 
 size:5
 
 
 });
+
 
 
 ammo--;
@@ -278,9 +335,13 @@ updateHUD();
 
 
 
+
+
+
 // =======================
 // PLAYER MOVEMENT
 // =======================
+
 
 
 function movePlayer(){
@@ -293,9 +354,12 @@ let moving = false;
 
 if(keys["w"]){
 
+
 player.y -= player.speed;
 
-moving=true;
+
+moving = true;
+
 
 }
 
@@ -303,9 +367,12 @@ moving=true;
 
 if(keys["s"]){
 
+
 player.y += player.speed;
 
-moving=true;
+
+moving = true;
+
 
 }
 
@@ -313,9 +380,12 @@ moving=true;
 
 if(keys["a"]){
 
+
 player.x -= player.speed;
 
-moving=true;
+
+moving = true;
+
 
 }
 
@@ -323,59 +393,70 @@ moving=true;
 
 if(keys["d"]){
 
+
 player.x += player.speed;
 
-moving=true;
+
+moving = true;
+
 
 }
 
 
 
+
+
 // DASH
+
 
 if(keys["space"] && canDash && moving){
 
 
-let dx=0;
 
-let dy=0;
+let dx = 0;
+
+let dy = 0;
+
 
 
 
 if(keys["w"])
-dy=-1;
+dy = -1;
 
 
 if(keys["s"])
-dy=1;
+dy = 1;
 
 
 if(keys["a"])
-dx=-1;
+dx = -1;
 
 
 if(keys["d"])
-dx=1;
+dx = 1;
+
 
 
 
 player.x += dx * dashPower;
 
+
 player.y += dy * dashPower;
 
 
 
-canDash=false;
+
+canDash = false;
 
 
 
 setTimeout(()=>{
 
 
-canDash=true;
+canDash = true;
 
 
-},dashCooldown);
+}, dashCooldown);
 
 
 
@@ -384,19 +465,27 @@ canDash=true;
 
 
 
-// boundaries
+
+// BOUNDARIES
+
 
 
 player.x = Math.max(
+
 0,
+
 Math.min(canvas.width,player.x)
+
 );
 
 
 
 player.y = Math.max(
+
 0,
+
 Math.min(canvas.height,player.y)
+
 );
 
 
@@ -406,32 +495,42 @@ Math.min(canvas.height,player.y)
 
 
 
+
+
+
+
 // =======================
-// BULLETS
+// BULLET UPDATE
 // =======================
+
 
 
 function updateBullets(){
 
 
+
 bullets.forEach((bullet,index)=>{
 
 
+
 bullet.x += bullet.dx;
+
 
 bullet.y += bullet.dy;
 
 
 
+
 if(
 
-bullet.x <0 ||
+bullet.x < 0 ||
 
 bullet.x > canvas.width ||
 
-bullet.y <0 ||
+bullet.y < 0 ||
 
-bullet.y >canvas.height
+bullet.y > canvas.height
+
 
 ){
 
@@ -448,22 +547,12 @@ bullets.splice(index,1);
 
 
 }
-
-
-
-
-// =======================
-// SPAWN ZOMBIE
-// =======================
-
-
 // =======================
 // SPAWN ZOMBIE SYSTEM
 // =======================
 
 
 function spawnZombie(){
-
 
 
 let side = Math.floor(Math.random()*4);
@@ -482,7 +571,6 @@ y=Math.random()*canvas.height;
 }
 
 
-
 if(side===1){
 
 x=canvas.width;
@@ -492,7 +580,6 @@ y=Math.random()*canvas.height;
 }
 
 
-
 if(side===2){
 
 x=Math.random()*canvas.width;
@@ -500,7 +587,6 @@ x=Math.random()*canvas.width;
 y=0;
 
 }
-
 
 
 if(side===3){
@@ -514,23 +600,15 @@ y=canvas.height;
 
 
 
-
-// =======================
-// RANDOM ZOMBIE TYPE
-// =======================
-
-
-let typeRoll = Math.random();
-
-
-let zombie;
-
 // =======================
 // BOSS CHECK
 // =======================
 
 
-if(wave % 5 === 0 && bossActive === false){
+if(
+wave % 5 === 0 &&
+bossActive === false
+){
 
 
 bossActive = true;
@@ -547,17 +625,24 @@ let boss = {
 
 type:"boss",
 
+
 x:x,
+
 
 y:y,
 
+
 size:70,
+
 
 speed:1,
 
+
 hp:1000,
 
+
 maxHp:1000,
+
 
 color:"purple"
 
@@ -574,7 +659,24 @@ return;
 
 }
 
+
+
+
+// =======================
+// RANDOM ZOMBIE TYPE
+// =======================
+
+
+let typeRoll = Math.random();
+
+
+let zombie;
+
+
+
+
 // WALKER
+
 if(typeRoll < 0.7){
 
 
@@ -583,15 +685,21 @@ zombie = {
 
 type:"walker",
 
+
 x:x,
+
 
 y:y,
 
+
 size:25,
+
 
 speed:1.5,
 
+
 hp:50,
+
 
 color:"green"
 
@@ -599,7 +707,9 @@ color:"green"
 };
 
 
+
 }
+
 
 
 // RUNNER
@@ -612,15 +722,21 @@ zombie = {
 
 type:"runner",
 
+
 x:x,
+
 
 y:y,
 
+
 size:20,
+
 
 speed:3,
 
+
 hp:30,
+
 
 color:"orange"
 
@@ -628,7 +744,9 @@ color:"orange"
 };
 
 
+
 }
+
 
 
 // TANK
@@ -641,20 +759,27 @@ zombie = {
 
 type:"tank",
 
+
 x:x,
+
 
 y:y,
 
+
 size:40,
+
 
 speed:0.8,
 
+
 hp:200,
 
-color:"black"
+
+color:"#555"
 
 
 };
+
 
 
 }
@@ -666,6 +791,12 @@ zombies.push(zombie);
 
 
 }
+
+
+
+
+
+
 
 // =======================
 // ZOMBIE AI
@@ -679,6 +810,7 @@ function updateZombies(){
 zombies.forEach((zombie,index)=>{
 
 
+
 let angle = Math.atan2(
 
 player.y-zombie.y,
@@ -689,10 +821,12 @@ player.x-zombie.x
 
 
 
+
 zombie.x += Math.cos(angle)*zombie.speed;
 
 
 zombie.y += Math.sin(angle)*zombie.speed;
+
 
 
 
@@ -710,6 +844,7 @@ player.x-zombie.x,
 player.y-zombie.y
 
 );
+
 
 
 
@@ -746,7 +881,10 @@ endGame();
 }
 
 
+
 }
+
+
 
 
 
@@ -757,7 +895,9 @@ endGame();
 // =======================
 
 
+
 bullets.forEach((bullet,bIndex)=>{
+
 
 
 let hit = Math.hypot(
@@ -770,6 +910,7 @@ bullet.y-zombie.y
 
 
 
+
 if(hit < zombie.size){
 
 
@@ -777,14 +918,20 @@ if(hit < zombie.size){
 zombie.hp -= 25;
 
 
-if(zombie.type==="boss"){
+bullets.splice(bIndex,1);
+
+
+
+
+if(zombie.type === "boss"){
+
 
 shake = 10;
+
 
 }
 
 
-bullets.splice(bIndex,1);
 
 
 
@@ -792,16 +939,26 @@ if(zombie.hp <= 0){
 
 
 
-if(zombie.type==="boss"){
+if(zombie.type === "boss"){
 
 
-bossActive=false;
+bossActive = false;
+
+
+score += 10;
 
 
 coins += 100;
 
 
-score += 10;
+
+}else{
+
+
+score++;
+
+
+coins += 10;
 
 
 }
@@ -811,16 +968,13 @@ score += 10;
 zombies.splice(index,1);
 
 
-score++;
-
-
-coins += 10;
-
 
 updateHUD();
 
 
+
 }
+
 
 
 }
@@ -832,6 +986,8 @@ updateHUD();
 
 
 });
+
+
 
 
 
@@ -839,8 +995,6 @@ updateHUD();
 
 // =======================
 // WAVE CHECK
-// ILAGAY DITO
-// SA LABAS NG FOREACH
 // =======================
 
 
@@ -864,32 +1018,53 @@ nextWave();
 }
 
 
+
 }
 
+
+
+
+
+
+
+
 // =======================
-// NEXT WAVE SYSTEM
+// NEXT WAVE
 // =======================
 
 
 function nextWave(){
 
 
+
 wave++;
+
 
 
 zombiesSpawned = 0;
 
 
+
 zombiesToSpawn += 5;
+
 
 
 waveCleared = false;
 
 
+
 updateHUD();
 
 
+
 }
+
+
+
+
+
+
+
 
 // =======================
 // DRAW
@@ -898,45 +1073,7 @@ updateHUD();
 
 function draw(){
 
-// =======================
-// BOSS WARNING
-// =======================
 
-
-if(bossWarning){
-
-
-ctx.fillStyle="red";
-
-ctx.font="40px Arial";
-
-
-ctx.fillText(
-
-"⚠️ BOSS INCOMING ⚠️",
-
-canvas.width/2-220,
-
-canvas.height/2
-
-);
-
-
-
-bossWarningTimer--;
-
-
-
-if(bossWarningTimer <= 0){
-
-
-bossWarning=false;
-
-
-}
-
-
-}
 
 ctx.clearRect(
 
@@ -948,7 +1085,18 @@ canvas.width,
 
 canvas.height
 
+);
+
+
+
+
+
+// SCREEN SHAKE
+
+
 if(shake > 0){
+
+
 
 ctx.translate(
 
@@ -959,11 +1107,15 @@ Math.random()*shake-shake/2
 );
 
 
+
 shake--;
+
+
 
 }
 
-);
+
+
 
 
 
@@ -997,6 +1149,9 @@ ctx.fill();
 
 
 
+
+
+
 // AIM LINE
 
 
@@ -1007,8 +1162,11 @@ ctx.beginPath();
 
 
 ctx.moveTo(
+
 player.x,
+
 player.y
+
 );
 
 
@@ -1026,6 +1184,10 @@ ctx.stroke();
 
 
 
+
+
+
+
 // BULLETS
 
 
@@ -1033,6 +1195,7 @@ ctx.fillStyle="yellow";
 
 
 bullets.forEach(b=>{
+
 
 
 ctx.beginPath();
@@ -1063,7 +1226,6 @@ ctx.fill();
 
 
 
-// ZOMBIES
 
 
 // ZOMBIES
@@ -1072,7 +1234,9 @@ ctx.fill();
 zombies.forEach(z=>{
 
 
+
 ctx.fillStyle = z.color;
+
 
 
 ctx.beginPath();
@@ -1093,6 +1257,7 @@ Math.PI*2
 );
 
 
+
 ctx.fill();
 
 
@@ -1100,7 +1265,11 @@ ctx.fill();
 });
 
 
-}
+
+
+
+
+
 
 // =======================
 // BOSS HP BAR
@@ -1110,7 +1279,8 @@ ctx.fill();
 zombies.forEach(z=>{
 
 
-if(z.type==="boss"){
+
+if(z.type === "boss"){
 
 
 
@@ -1138,6 +1308,7 @@ barWidth,
 
 
 
+
 ctx.fillStyle="red";
 
 
@@ -1152,6 +1323,7 @@ barWidth*hpPercent,
 25
 
 );
+
 
 
 
@@ -1181,12 +1353,92 @@ canvas.width/2-30,
 
 
 
+
+
+
+// BOSS WARNING
+
+
+if(bossWarning){
+
+
+
+ctx.fillStyle="red";
+
+
+ctx.font="40px Arial";
+
+
+ctx.fillText(
+
+"⚠️ BOSS INCOMING ⚠️",
+
+canvas.width/2-220,
+
+canvas.height/2
+
+);
+
+
+
+bossWarningTimer--;
+
+
+
+if(bossWarningTimer <= 0){
+
+
+bossWarning=false;
+
+
+}
+
+
+
+}
+
+
+
+
+
+// RESET SHAKE
+
+
+ctx.setTransform(
+
+1,
+
+0,
+
+0,
+
+1,
+
+0,
+
+0
+
+);
+
+
+
+}
+
+
+
+
+
+
+
+
+
 // =======================
 // HUD
 // =======================
 
 
 function updateHUD(){
+
 
 
 document.getElementById("health").innerHTML =
@@ -1213,7 +1465,16 @@ document.getElementById("wave").innerHTML =
 wave;
 
 
+
 }
+
+
+
+
+
+
+
+
 
 // =======================
 // GAME OVER
@@ -1223,27 +1484,46 @@ wave;
 function endGame(){
 
 
+
 gameRunning = false;
 
 
+
 document
+
 .getElementById("gameOver")
+
 .classList.remove("hidden");
+
 
 
 }
 
+
+
+
 document
+
 .getElementById("restartBtn")
+
 .addEventListener(
+
 "click",
+
 ()=>{
 
 
 location.reload();
 
 
+
 });
+
+
+
+
+
+
 
 
 
@@ -1259,6 +1539,7 @@ function gameLoop(){
 if(gameRunning){
 
 
+
 movePlayer();
 
 
@@ -1269,6 +1550,7 @@ updateZombies();
 
 
 draw();
+
 
 
 }
@@ -1286,18 +1568,27 @@ requestAnimationFrame(gameLoop);
 
 
 
+
+
+// =======================
 // SPAWN TIMER
+// =======================
 
 
 setInterval(()=>{
 
 
+
 if(gameRunning){
 
 
+
 if(
+
 zombiesSpawned < zombiesToSpawn
+
 ){
+
 
 
 spawnZombie();
@@ -1306,7 +1597,9 @@ spawnZombie();
 zombiesSpawned++;
 
 
+
 }
+
 
 
 }
@@ -1318,9 +1611,15 @@ zombiesSpawned++;
 
 
 
-// START
+
+
+
+// =======================
+// START GAME
+// =======================
 
 
 updateHUD();
+
 
 gameLoop();
