@@ -923,10 +923,13 @@ ctx.fill();
 // ZOMBIES
 
 
-ctx.fillStyle="red";
+// ZOMBIES
 
 
 zombies.forEach(z=>{
+
+
+ctx.fillStyle = z.color;
 
 
 ctx.beginPath();
@@ -950,8 +953,8 @@ Math.PI*2
 ctx.fill();
 
 
-});
 
+});
 
 
 }
