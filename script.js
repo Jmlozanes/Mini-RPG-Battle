@@ -30,6 +30,10 @@ let waveCleared = false;
 
 let bossActive = false;
 
+let bossWarning = false;
+
+let bossWarningTimer = 0;
+
 let coins = 0;
 
 
@@ -530,6 +534,12 @@ if(wave % 5 === 0 && bossActive === false){
 bossActive = true;
 
 
+bossWarning = true;
+
+bossWarningTimer = 180;
+
+
+
 let boss = {
 
 
@@ -544,6 +554,8 @@ size:70,
 speed:1,
 
 hp:1000,
+
+maxHp:1000,
 
 color:"purple"
 
