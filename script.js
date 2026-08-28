@@ -474,6 +474,12 @@ buyUpgrade("4");
 
 }
 
+if(key=="5"){
+
+buyUpgrade("5");
+
+}
+    
 });
 
 
