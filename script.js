@@ -219,6 +219,79 @@ function reload(){
 
 }
 
+function shoot(){
+
+
+if(!gameRunning)
+return;
+
+
+if(!shooting)
+return;
+
+
+if(!canShoot)
+return;
+
+
+if(reloading)
+return;
+
+
+if(ammo <=0)
+return;
+
+
+
+let speed = 10;
+
+
+
+bullets.push({
+
+
+x:player.x,
+
+
+y:player.y,
+
+
+dx:Math.cos(player.angle)*speed,
+
+
+dy:Math.sin(player.angle)*speed,
+
+
+size:5
+
+
+});
+
+
+
+ammo--;
+
+
+updateHUD();
+
+
+
+canShoot = false;
+
+
+
+setTimeout(()=>{
+
+
+canShoot = true;
+
+
+},fireRate);
+
+
+
+}
+
 
 
 
