@@ -313,7 +313,39 @@ reload();
 
 }
 
+if(key=="r"){
 
+reload();
+
+}
+
+
+if(key=="1"){
+
+buyUpgrade("1");
+
+}
+
+
+if(key=="2"){
+
+buyUpgrade("2");
+
+}
+
+
+if(key=="3"){
+
+buyUpgrade("3");
+
+}
+
+
+if(key=="4"){
+
+buyUpgrade("4");
+
+}
 
 });
 
