@@ -556,6 +556,7 @@ bullets.splice(index,1);
 
 function spawnZombie(){
 
+console.log("SPAWNING ZOMBIE");
 
 let side = Math.floor(Math.random()*4);
 
