@@ -24,6 +24,10 @@ let health = maxHealth;
 
 let playerDamage = 25;
 
+let fireRate = 300;
+
+let canShoot = true;
+
 let wave = 1;
 
 
