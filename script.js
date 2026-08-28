@@ -1682,7 +1682,55 @@ zombies.push(minion);
 
 }
 
+// =======================
+// SPAWN TIMER
+// =======================
 
+
+setInterval(()=>{
+
+
+if(gameRunning){
+
+
+
+if(
+zombiesSpawned < zombiesToSpawn
+){
+
+
+spawnZombie();
+
+
+zombiesSpawned++;
+
+
+}
+
+
+
+
+// BOSS MINIONS
+
+
+if(
+bossActive &&
+Math.random() < 0.02
+){
+
+
+spawnNormalMinion();
+
+
+}
+
+
+
+}
+
+
+
+},1200);
 
 
 
