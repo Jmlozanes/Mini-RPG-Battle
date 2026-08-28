@@ -18,7 +18,9 @@ let mouse = {
 
 let score = 0;
 
-let health = 100;
+let maxHealth = 100;
+
+let health = maxHealth;
 
 let playerDamage = 25;
 
