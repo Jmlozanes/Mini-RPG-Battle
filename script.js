@@ -318,7 +318,12 @@ if(key=="r"){
 reload();
 
 }
+    
+if(key=="b"){
 
+shopOpen = !shopOpen;
+
+}
 
 if(key=="1"){
 
@@ -1718,6 +1723,9 @@ if(gameRunning){
 
 
 
+if(!shopOpen){
+
+
 movePlayer();
 
 
@@ -1725,6 +1733,10 @@ updateBullets();
 
 
 updateZombies();
+
+
+}
+
 
 
 draw();
