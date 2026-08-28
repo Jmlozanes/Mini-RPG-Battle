@@ -490,8 +490,13 @@ shooting = false;
 });
 
 
-let rect = canvas.getBoundingClientRect();
 
+canvas.addEventListener(
+"mousemove",
+(e)=>{
+
+
+let rect = canvas.getBoundingClientRect();
 
 
 mouse.x = e.clientX - rect.left;
@@ -501,18 +506,13 @@ mouse.y = e.clientY - rect.top;
 
 
 
-
 player.angle = Math.atan2(
-
 
 mouse.y-player.y,
 
-
 mouse.x-player.x
 
-
 );
-
 
 
 });
