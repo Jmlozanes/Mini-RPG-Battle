@@ -1942,6 +1942,7 @@ if(!shopOpen){
 
 movePlayer();
 
+shoot();
 
 updateBullets();
 
