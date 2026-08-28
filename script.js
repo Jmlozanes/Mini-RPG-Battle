@@ -396,8 +396,25 @@ keys[key] = false;
 
 
 canvas.addEventListener(
-"mousemove",
-(e)=>{
+"mousedown",
+()=>{
+
+
+shooting = true;
+
+
+});
+
+
+canvas.addEventListener(
+"mouseup",
+()=>{
+
+
+shooting = false;
+
+
+});
 
 
 let rect = canvas.getBoundingClientRect();
