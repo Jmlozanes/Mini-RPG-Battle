@@ -35,6 +35,8 @@ let waveCleared = false;
 
 let coins = 0;
 
+let shopOpen = false;
+
 
 // BOSS SYSTEM
 
@@ -66,7 +68,117 @@ let reloading = false;
 
 let reloadTime = 1500;
 
+// =======================
+// UPGRADE SHOP SYSTEM
+// =======================
 
+
+function buyUpgrade(choice){
+
+
+if(choice === "1"){
+
+
+
+if(coins >= 50){
+
+
+coins -= 50;
+
+
+playerDamage += 5;
+
+
+console.log("Damage upgraded!");
+
+
+}
+
+
+
+}
+
+
+
+if(choice === "2"){
+
+
+
+if(coins >= 75){
+
+
+coins -= 75;
+
+
+maxHealth += 20;
+
+
+health = maxHealth;
+
+
+console.log("Health upgraded!");
+
+
+}
+
+
+
+}
+
+
+
+if(choice === "3"){
+
+
+
+if(coins >= 100){
+
+
+coins -= 100;
+
+
+player.speed += 1;
+
+
+console.log("Speed upgraded!");
+
+
+}
+
+
+
+}
+
+
+
+if(choice === "4"){
+
+
+
+if(coins >= 150){
+
+
+coins -= 150;
+
+
+reloadTime -= 200;
+
+
+console.log("Reload upgraded!");
+
+
+}
+
+
+
+}
+
+
+
+updateHUD();
+
+
+}
 
 function reload(){
 
