@@ -20,7 +20,10 @@ let score = 0;
 
 let health = 100;
 
+let playerDamage = 25;
+
 let wave = 1;
+
 
 let zombiesToSpawn = 10;
 
@@ -944,7 +947,7 @@ if(hit < zombie.size){
 
 
 
-zombie.hp -= 25;
+zombie.hp -= playerDamage;
 
 
 bullets.splice(bIndex,1);
