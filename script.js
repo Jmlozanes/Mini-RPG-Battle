@@ -35,6 +35,8 @@ let coins = 0;
 
 let bossActive = false;
 
+let bossSpawnedThisWave = false;
+
 let bossWarning = false;
 
 let bossWarningTimer = 0;
