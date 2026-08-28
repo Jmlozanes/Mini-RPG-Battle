@@ -44,7 +44,7 @@ let bossWarningTimer = 0;
 
 let shake = 0;
 
-
+let playerDamageCooldown = false;
 
 
 // =======================
