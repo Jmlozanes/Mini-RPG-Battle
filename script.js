@@ -1593,44 +1593,90 @@ requestAnimationFrame(gameLoop);
 
 
 
-
 // =======================
-// SPAWN TIMER
+// BOSS MINION SPAWN
 // =======================
 
 
-setInterval(()=>{
+function spawnNormalMinion(){
+
+
+let side = Math.floor(Math.random()*4);
+
+
+let x,y;
 
 
 
-if(gameRunning){
+if(side===0){
+
+x=0;
+
+y=Math.random()*canvas.height;
+
+}
 
 
+if(side===1){
 
-if(
+x=canvas.width;
 
-zombiesSpawned < zombiesToSpawn
+y=Math.random()*canvas.height;
 
-){
-
-
-
-spawnZombie();
+}
 
 
-zombiesSpawned++;
+if(side===2){
+
+x=Math.random()*canvas.width;
+
+y=0;
+
+}
 
 
+if(side===3){
+
+x=Math.random()*canvas.width;
+
+y=canvas.height;
 
 }
 
 
 
+let minion = {
+
+
+type:"walker",
+
+
+x:x,
+
+
+y:y,
+
+
+size:25,
+
+
+speed:1.5,
+
+
+hp:50,
+
+
+color:"green"
+
+
+};
+
+
+
+zombies.push(minion);
+
+
 }
-
-
-
-},1200);
 
 
 
