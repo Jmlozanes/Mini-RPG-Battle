@@ -616,6 +616,7 @@ bossSpawnedThisWave === false
 
 bossActive = true;
 
+bossSpawnedThisWave = true;
 
 bossWarning = true;
 
