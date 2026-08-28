@@ -251,6 +251,20 @@ let speed = 10;
 
 
 
+for(let i = 0; i < bulletCount; i++){
+
+
+let spread = 0;
+
+
+if(bulletCount > 1){
+
+spread = (i - (bulletCount-1)/2) * 0.15;
+
+}
+
+
+
 bullets.push({
 
 
@@ -260,16 +274,19 @@ x:player.x,
 y:player.y,
 
 
-dx:Math.cos(player.angle)*speed,
+dx:Math.cos(player.angle + spread)*speed,
 
 
-dy:Math.sin(player.angle)*speed,
+dy:Math.sin(player.angle + spread)*speed,
 
 
 size:5
 
 
 });
+
+
+}
 
 
 
