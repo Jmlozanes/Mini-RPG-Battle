@@ -1762,7 +1762,19 @@ ctx.fillText(
 );
 
 
+    
+ctx.fillText(
 
+"5. Weapon Upgrade (200 Coins)",
+
+150,
+
+380
+
+);
+
+
+    
 ctx.fillText(
 
 "Press B to Close",
