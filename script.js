@@ -183,6 +183,28 @@ console.log("Reload upgraded!");
 
 }
 
+if(choice === "5"){
+
+
+if(coins >= 200){
+
+
+coins -= 200;
+
+
+weaponLevel++;
+
+
+bulletCount++;
+
+
+console.log("Weapon upgraded!");
+
+}
+
+
+}
+
 
 
 updateHUD();
