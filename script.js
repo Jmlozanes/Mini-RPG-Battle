@@ -508,9 +508,12 @@ mouse.y = e.clientY - rect.top;
 
 player.angle = Math.atan2(
 
+
 mouse.y-player.y,
 
+
 mouse.x-player.x
+
 
 );
 
