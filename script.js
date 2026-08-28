@@ -616,6 +616,7 @@ bossActive = true;
 
 bossWarning = true;
 
+
 bossWarningTimer = 180;
 
 
@@ -654,10 +655,12 @@ color:"purple"
 zombies.push(boss);
 
 
+
 return;
 
 
 }
+
 
 
 
