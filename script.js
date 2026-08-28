@@ -28,6 +28,8 @@ let fireRate = 300;
 
 let canShoot = true;
 
+let shooting = false;
+
 let wave = 1;
 
 
