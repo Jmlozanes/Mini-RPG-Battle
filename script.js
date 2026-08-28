@@ -609,7 +609,8 @@ y=canvas.height;
 
 if(
 wave % 5 === 0 &&
-bossActive === false
+bossActive === false &&
+bossSpawnedThisWave === false
 ){
 
 
