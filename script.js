@@ -1581,7 +1581,125 @@ bossWarning=false;
 }
 
 
+// =======================
+// SHOP UI
+// =======================
 
+
+if(shopOpen){
+
+
+ctx.fillStyle="rgba(0,0,0,0.8)";
+
+
+ctx.fillRect(
+
+100,
+
+50,
+
+canvas.width-200,
+
+canvas.height-100
+
+);
+
+
+
+ctx.fillStyle="white";
+
+
+ctx.font="30px Arial";
+
+
+ctx.fillText(
+
+"UPGRADE SHOP",
+
+canvas.width/2-120,
+
+120
+
+);
+
+
+
+ctx.font="20px Arial";
+
+
+ctx.fillText(
+
+"Coins: "+coins,
+
+150,
+
+170
+
+);
+
+
+
+ctx.fillText(
+
+"1. Damage +5  (50 Coins)",
+
+150,
+
+220
+
+);
+
+
+
+ctx.fillText(
+
+"2. Health +20 (75 Coins)",
+
+150,
+
+260
+
+);
+
+
+
+ctx.fillText(
+
+"3. Speed +1 (100 Coins)",
+
+150,
+
+300
+
+);
+
+
+
+ctx.fillText(
+
+"4. Reload Faster (150 Coins)",
+
+150,
+
+340
+
+);
+
+
+
+ctx.fillText(
+
+"Press B to Close",
+
+150,
+
+400
+
+);
+
+
+
+}
 
 
 // RESET SHAKE
