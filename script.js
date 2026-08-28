@@ -852,16 +852,20 @@ if(distance < player.size + zombie.size){
 
 
 
+if(!playerDamageCooldown){
+
+
+
 if(zombie.type === "boss"){
 
 
-health -= 5;
+health -= 10;
 
 
 }else{
 
 
-health -= 1;
+health -= 5;
 
 
 }
@@ -869,6 +873,20 @@ health -= 1;
 
 
 updateHUD();
+
+
+
+playerDamageCooldown = true;
+
+
+
+setTimeout(()=>{
+
+
+playerDamageCooldown = false;
+
+
+},800);
 
 
 
@@ -880,6 +898,9 @@ endGame();
 
 }
 
+
+
+}
 
 
 }
