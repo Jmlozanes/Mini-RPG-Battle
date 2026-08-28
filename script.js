@@ -30,6 +30,10 @@ let canShoot = true;
 
 let shooting = false;
 
+let weaponLevel = 1;
+
+let bulletCount = 1;
+
 let wave = 1;
 
 
