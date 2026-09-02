@@ -774,7 +774,7 @@ speed:0.8,
 
 hp:200,
 
-color:"#555"
+color:"#555",
 
 hitFlash:0
     
