@@ -583,6 +583,32 @@ particles.splice(index,1);
 
 }
 
+// DAMAGE TEXT SYSTEM
+
+function updateDamageTexts(){
+
+
+damageTexts.forEach((d,index)=>{
+
+
+d.y += d.speedY;
+
+
+d.life--;
+
+
+if(d.life <= 0){
+
+damageTexts.splice(index,1);
+
+}
+
+
+});
+
+
+}
+
 function createParticle(x,y,color){
 
 if(particles.length > 200){
@@ -1154,6 +1180,26 @@ ctx.fill();
 
 });
 
+// DAMAGE TEXT
+
+ctx.fillStyle = "white";
+
+ctx.font = "20px Arial";
+
+damageTexts.forEach(d=>{
+
+ctx.fillText(
+
+d.text,
+
+d.x,
+
+d.y
+
+);
+
+});
+    
 // ZOMBIES
 
 zombies.forEach(z=>{
@@ -1477,6 +1523,8 @@ updateBullets();
 
 updateParticles();
 
+updateDamageTexts();
+    
 updateZombies();
 
 }
