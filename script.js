@@ -1119,9 +1119,7 @@ shake--;
 }
 
 ctx.setTransform(1,0,0,1,0,0);
-
-}
-    
+  
 // DAMAGE FLASH
 
 if(damageFlash > 0){
