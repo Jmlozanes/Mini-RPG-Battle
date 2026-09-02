@@ -622,6 +622,48 @@ damageTexts.splice(index,1);
 
 }
 
+// DROP UPDATE SYSTEM
+
+function updateDrops(){
+
+
+drops.forEach((d,index)=>{
+
+
+let distance = Math.hypot(
+
+player.x - d.x,
+
+player.y - d.y
+
+);
+
+
+
+if(distance < player.size + d.size){
+
+
+if(d.type === "coin"){
+
+coins += 5;
+
+}
+
+
+drops.splice(index,1);
+
+
+updateHUD();
+
+
+}
+
+
+});
+
+
+}
+
 function createParticle(x,y,color){
 
 if(particles.length > 200){
@@ -1688,6 +1730,8 @@ updateBullets();
 updateParticles();
 
 updateDamageTexts();
+
+updateDrops();
     
 updateZombies();
 
