@@ -307,6 +307,9 @@ let zombies = [];
 let particles = [];
 
 let damageTexts = [];
+
+let drops = [];
+
 // =======================
 // INPUT SYSTEM
 // =======================
@@ -670,6 +673,24 @@ speedY:-1
 
 }
 
+function createDrop(x,y,type){
+
+
+drops.push({
+
+x:x,
+
+y:y,
+
+type:type,
+
+size:12
+
+});
+
+
+}
+
 // =======================
 // SPAWN ZOMBIE SYSTEM
 // =======================
@@ -994,6 +1015,20 @@ zombie.y,
 
 }
 
+if(Math.random() < 0.3){
+
+createDrop(
+
+zombie.x,
+
+zombie.y,
+
+"coin"
+
+);
+
+}
+    
 if(zombie.type === "boss"){
 
 bossActive = false;
