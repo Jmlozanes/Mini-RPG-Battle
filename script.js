@@ -1099,9 +1099,11 @@ zombies.splice(index,1);
 
 updateHUD();
 
-}
+            }
 
-});
+        }
+    
+    });
 
 });
 
