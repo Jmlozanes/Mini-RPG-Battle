@@ -1272,7 +1272,18 @@ if(hit < zombie.size){
 
 zombie.hp -= playerDamage;
 
+// HIT EFFECT
 
+createParticle(
+
+bullet.x,
+
+bullet.y,
+
+"red"
+
+);
+    
 bullets.splice(bIndex,1);
 
 
