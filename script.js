@@ -1860,7 +1860,7 @@ ctx.fillText(
     
 ctx.fillText(
 
-"5. Weapon Upgrade (200 Coins) LVL "+weaponLevel
+"5. Weapon Upgrade (200 Coins) LVL "+weaponLevel,
 
 150,
 
