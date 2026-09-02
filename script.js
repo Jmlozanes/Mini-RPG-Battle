@@ -88,20 +88,27 @@ let reloadTime = 1500;
 function buyUpgrade(choice){
 
 
-if(choice === "1"){
+if(choice === "5"){
 
 
+if(coins >= 200 && weaponLevel < maxWeaponLevel){
 
-if(coins >= 50){
+
+coins -= 200;
 
 
-coins -= 50;
+weaponLevel++;
+
+
+bulletCount++;
 
 
 playerDamage += 5;
 
 
-console.log("Damage upgraded!");
+console.log(
+"Weapon Level: " + weaponLevel
+);
 
 
 }
