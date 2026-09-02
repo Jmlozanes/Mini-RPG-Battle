@@ -1610,25 +1610,25 @@ Math.PI*2
 
 );
 
-
 ctx.fill();
-
 
 });
 
-
-
-
 // ZOMBIES
-
 
 zombies.forEach(z=>{
 
+if(z.hitFlash > 0){
 
+ctx.fillStyle = "white";
+
+z.hitFlash--;
+
+}else{
 
 ctx.fillStyle = z.color;
 
-
+}
 
 ctx.beginPath();
 
