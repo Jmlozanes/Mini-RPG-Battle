@@ -887,6 +887,8 @@ health -= 5;
 }
 
 damageFlash = 10;
+
+shake = 10;
     
 updateHUD();
 
