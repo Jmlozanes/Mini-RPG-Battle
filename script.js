@@ -1072,6 +1072,26 @@ canvas.height
 
 );
 
+// SCREEN SHAKE
+
+if(shake > 0){
+
+ctx.translate(
+
+Math.random()*shake-shake/2,
+
+Math.random()*shake-shake/2
+
+);
+
+shake--;
+
+}
+
+ctx.setTransform(1,0,0,1,0,0);
+
+}
+    
 // DAMAGE FLASH
 
 if(damageFlash > 0){
@@ -1091,22 +1111,6 @@ canvas.height
 );
 
 damageFlash--;
-
-}
-    
-// SCREEN SHAKE
-
-if(shake > 0){
-
-ctx.translate(
-
-Math.random()*shake-shake/2,
-
-Math.random()*shake-shake/2
-
-);
-
-shake--;
 
 }
 
