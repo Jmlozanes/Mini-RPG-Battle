@@ -886,6 +886,8 @@ health -= 5;
 
 }
 
+damageFlash = 10;
+    
 updateHUD();
 
 playerDamageCooldown = true;
@@ -1068,6 +1070,28 @@ canvas.height
 
 );
 
+// DAMAGE FLASH
+
+if(damageFlash > 0){
+
+ctx.fillStyle = "rgba(255,0,0,0.3)";
+
+ctx.fillRect(
+
+0,
+
+0,
+
+canvas.width,
+
+canvas.height
+
+);
+
+damageFlash--;
+
+}
+    
 // SCREEN SHAKE
 
 if(shake > 0){
