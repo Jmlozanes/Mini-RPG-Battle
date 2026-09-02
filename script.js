@@ -44,6 +44,10 @@ let waveCleared = false;
 
 let coins = 0;
 
+let killStreak = 0;
+
+let streakTimer = 0;
+
 let shopOpen = false;
 
 // BOSS SYSTEM
@@ -61,6 +65,8 @@ let bossWarningTimer = 0;
 let damageFlash = 0;
 
 let shake = 0;
+
+let lowHealthPulse = 0;
 
 let playerDamageCooldown = false;
 
@@ -1000,6 +1006,10 @@ score++;
 
 coins += 10;
 
+killStreak++;
+
+streakTimer = 180;
+
 }
 
 zombies.splice(index,1);
@@ -1072,6 +1082,26 @@ canvas.height
 
 );
 
+// KILL STREAK TEXT
+
+if(killStreak > 1){
+
+ctx.fillStyle = "orange";
+
+ctx.font = "30px Arial";
+
+ctx.fillText(
+
+"KILL STREAK x" + killStreak,
+
+canvas.width/2 - 100,
+
+50
+
+);
+
+}
+
 // SCREEN SHAKE
 
 if(shake > 0){
@@ -1111,6 +1141,33 @@ canvas.height
 );
 
 damageFlash--;
+
+}
+
+// LOW HEALTH WARNING
+
+if(health <= 25){
+
+lowHealthPulse += 0.05;
+
+
+ctx.fillStyle = 
+"rgba(255,0,0," + 
+(0.2 + Math.sin(lowHealthPulse)*0.2) +
+")";
+
+
+ctx.fillRect(
+
+0,
+
+0,
+
+canvas.width,
+
+canvas.height
+
+);
 
 }
 
@@ -1559,6 +1616,16 @@ updateDamageTexts();
     
 updateZombies();
 
+if(streakTimer > 0){
+
+streakTimer--;
+
+}else{
+
+killStreak = 0;
+
+}
+    
 }
 
 draw();
