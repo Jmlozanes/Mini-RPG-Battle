@@ -788,6 +788,34 @@ bullets.splice(index,1);
 
 
 }
+
+function updateParticles(){
+
+
+particles.forEach((p,index)=>{
+
+
+p.x += p.speedX;
+
+p.y += p.speedY;
+
+
+p.life--;
+
+
+if(p.life <= 0){
+
+
+particles.splice(index,1);
+
+
+}
+
+
+});
+
+
+}
 // =======================
 // SPAWN ZOMBIE SYSTEM
 // =======================
