@@ -2033,6 +2033,7 @@ shoot();
 
 updateBullets();
 
+updateParticles();
 
 updateZombies();
 
