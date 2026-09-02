@@ -316,6 +316,15 @@ size:5
 
 });
 
+// MUZZLE FLASH
+
+createParticle(
+
+player.x,
+
+player.y,
+
+"yellow"
 
 }
 
