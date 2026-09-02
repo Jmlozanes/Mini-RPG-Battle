@@ -688,7 +688,9 @@ hp:1000,
 
 maxHp:1000,
 
-color:"purple"
+color:"purple",
+
+hitFlash:0
 
 };
 
