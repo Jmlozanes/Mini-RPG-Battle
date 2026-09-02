@@ -1035,7 +1035,7 @@ speed:1.5,
 hp:50,
 
 
-color:"green"
+color:"green",
 
 hitFlash:0
     
@@ -1073,7 +1073,7 @@ speed:3,
 hp:30,
 
 
-color:"orange"
+color:"orange",
 
 hitFlash:0 
 
@@ -2172,7 +2172,7 @@ speed:1.5,
 hp:50,
 
 
-color:"green"
+color:"green",
 
 
 };
