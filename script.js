@@ -839,6 +839,13 @@ particles.splice(index,1);
 function createParticle(x,y,color){
 
 
+if(particles.length > 200){
+
+return;
+
+}
+
+
 particles.push({
 
 x:x,
@@ -850,6 +857,8 @@ size:Math.random()*5+2,
 color:color,
 
 life:30,
+
+maxLife:30,
 
 speedX:(Math.random()-0.5)*5,
 
