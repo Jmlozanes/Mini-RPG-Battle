@@ -896,6 +896,16 @@ if(hit < zombie.size){
 
 zombie.hp -= playerDamage;
 
+createDamageText(
+
+zombie.x,
+
+zombie.y,
+
+playerDamage
+
+);
+
 zombie.hitFlash = 5;
 
 // HIT EFFECT
