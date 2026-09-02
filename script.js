@@ -295,6 +295,8 @@ let bullets = [];
 let zombies = [];
 
 let particles = [];
+
+let damageTexts = [];
 // =======================
 // INPUT SYSTEM
 // =======================
