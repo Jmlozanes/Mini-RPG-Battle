@@ -803,7 +803,7 @@ p.y += p.speedY;
 p.life--;
 
 
-if(p.life <= 0){
+if(p.life <=0){
 
 
 particles.splice(index,1);
@@ -816,6 +816,31 @@ particles.splice(index,1);
 
 
 }
+
+function createParticle(x,y,color){
+
+
+particles.push({
+
+x:x,
+
+y:y,
+
+size:Math.random()*5+2,
+
+color:color,
+
+life:30,
+
+speedX:(Math.random()-0.5)*5,
+
+speedY:(Math.random()-0.5)*5
+
+});
+
+
+}
+
 // =======================
 // SPAWN ZOMBIE SYSTEM
 // =======================
@@ -1476,39 +1501,6 @@ mouse.y
 
 
 ctx.stroke();
-
-
-
-// =======================
-// PARTICLE SYSTEM
-// =======================
-
-
-function createParticle(x,y,color){
-
-
-particles.push({
-
-x:x,
-
-y:y,
-
-size:Math.random()*5+2,
-
-color:color,
-
-life:30,
-
-speedX:(Math.random()-0.5)*5,
-
-speedY:(Math.random()-0.5)*5
-
-});
-
-
-}
-
-
 
 
 // BULLETS
