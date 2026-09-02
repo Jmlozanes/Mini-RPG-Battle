@@ -776,7 +776,7 @@ bullet.x,
 
 bullet.y,
 
-"white"
+"lightblue"
 
 );
 
