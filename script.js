@@ -22,6 +22,8 @@ let health = maxHealth;
 
 let playerDamage = 25;
 
+let damageMultiplier = 1;
+
 let fireRate = 300;
 
 let canShoot = true;
@@ -932,7 +934,7 @@ bullet.y-zombie.y
 
 if(hit < zombie.size){
 
-zombie.hp -= playerDamage;
+zombie.hp -= playerDamage * damageMultiplier;
 
 createDamageText(
 
@@ -1009,6 +1011,10 @@ coins += 10;
 killStreak++;
 
 streakTimer = 180;
+
+if(killStreak === 5){
+
+damageMultiplier = 1.5;
 
 }
 
@@ -1620,6 +1626,8 @@ streakTimer--;
 }else{
 
 killStreak = 0;
+
+damageMultiplier = 1;
 
 }
     
