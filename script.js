@@ -1037,7 +1037,8 @@ hp:50,
 
 color:"green"
 
-
+hitFlash:0
+    
 };
 
 
@@ -1074,6 +1075,7 @@ hp:30,
 
 color:"orange"
 
+hitFlash:0 
 
 };
 
@@ -1111,7 +1113,8 @@ hp:200,
 
 color:"#555"
 
-
+hitFlash:0
+    
 };
 
 
