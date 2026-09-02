@@ -320,13 +320,13 @@ size:5
 
 createParticle(
 
-player.x,
+player.x + Math.cos(player.angle) * 35,
 
-player.y,
+player.y + Math.sin(player.angle) * 35,
 
-"yellow"
+"orange"
 
-}
+);
 
 
 
