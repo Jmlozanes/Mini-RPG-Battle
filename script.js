@@ -822,7 +822,13 @@ p.y += p.speedY;
 p.life--;
 
 
-if(p.life <=0){
+// SHRINK EFFECT
+
+p.size *= 0.95;
+
+
+
+if(p.life <=0 || p.size < 0.5){
 
 
 particles.splice(index,1);
