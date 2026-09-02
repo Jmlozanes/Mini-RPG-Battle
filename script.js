@@ -590,6 +590,7 @@ if(particles.length > 200){
 return;
 
 }
+    
 
 particles.push({
 
@@ -608,6 +609,26 @@ maxLife:30,
 speedX:(Math.random()-0.5)*5,
 
 speedY:(Math.random()-0.5)*5
+
+});
+
+}
+
+// DAMAGE TEXT SYSTEM
+
+function createDamageText(x,y,damage){
+
+damageTexts.push({
+
+x:x,
+
+y:y,
+
+text:"-"+damage,
+
+life:40,
+
+speedY:-1
 
 });
 
