@@ -1327,6 +1327,43 @@ d.y
 );
 
 });
+
+// DROPS
+
+drops.forEach(d=>{
+
+
+if(d.type === "coin"){
+
+ctx.fillStyle="yellow";
+
+}else{
+
+ctx.fillStyle="red";
+
+}
+
+
+ctx.beginPath();
+
+ctx.arc(
+
+d.x,
+
+d.y,
+
+d.size,
+
+0,
+
+Math.PI*2
+
+);
+
+ctx.fill();
+
+
+});
     
 // ZOMBIES
 
