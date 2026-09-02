@@ -58,9 +58,9 @@ let bossWarningTimer = 0;
 
 // SCREEN SHAKE
 
-let shake = 0;
-
 let damageFlash = 0;
+
+let shake = 0;
 
 let playerDamageCooldown = false;
 
