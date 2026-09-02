@@ -1266,14 +1266,11 @@ bullet.y-zombie.y
 
 );
 
-
-
-
 if(hit < zombie.size){
 
-
-
 zombie.hp -= playerDamage;
+
+zombie.hitFlash = 5;
 
 // HIT EFFECT
 
