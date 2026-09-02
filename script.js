@@ -282,7 +282,7 @@ let speed = 10;
 
 
 
-for(let i = 0; i < bulletCount; i++){
+for(let i = 0; i < Math.min(bulletCount,7); i++){
 
 
 let spread = 0;
