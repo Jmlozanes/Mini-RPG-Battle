@@ -768,7 +768,17 @@ bullet.x += bullet.dx;
 
 bullet.y += bullet.dy;
 
+// BULLET TRAIL
 
+createParticle(
+
+bullet.x,
+
+bullet.y,
+
+"white"
+
+);
 
 
 if(
