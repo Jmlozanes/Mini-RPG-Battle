@@ -897,6 +897,30 @@ shake = 10;
 
 if(zombie.hp <= 0){
 
+let burstAmount = 8;
+
+
+if(zombie.type === "boss"){
+
+burstAmount = 25;
+
+}
+
+for(let i = 0; i < burstAmount; i++){
+
+createParticle(
+
+zombie.x,
+
+zombie.y,
+
+"red"
+
+);
+
+
+}
+
 if(zombie.type === "boss"){
 
 bossActive = false;
