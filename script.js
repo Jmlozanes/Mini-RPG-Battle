@@ -5,9 +5,12 @@ const ctx = canvas.getContext("2d");
 // GAME VARIABLES
 // =======================
 
+
 let gameRunning = true;
 
+
 let keys = {};
+
 
 let mouse = {
     x: canvas.width / 2,
